@@ -1,0 +1,456 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* payment_papi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-30 09:18+0000\n"
+"PO-Revision-Date: 2026-09-30 09:18+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "API Key"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_link_status__active
+msgid "Active"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__airtel_money
+msgid "Airtel Money"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__bred
+msgid "Card (BRED)"
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_transaction_form
+msgid "Check Papi Status"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__code
+msgid "Code"
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+msgid "Could not establish the connection to the API."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "Customer"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_link_status__disabled
+msgid "Disabled"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_link_status__expired
+msgid "Expired"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_status__failed
+msgid "Failed"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_link_validity
+msgid "How long the customer can use the Papi payment link before it expires."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__mvola
+msgid "MVola"
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "No transaction found matching reference %s."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Notification Signing Secret"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__orange_money
+msgid "Orange Money"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_link_status__paid
+msgid "Paid"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_provider__code__papi
+#: model:payment.provider,name:payment_papi.payment_provider_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_transaction_form
+msgid "Papi"
+msgstr ""
+
+#. module: payment_papi
+#: model:payment.method,name:payment_papi.payment_method_papi
+msgid "Papi (Mobile Money, card)"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_api_key
+msgid "Papi API Key"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_api_url
+msgid "Papi API URL"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__papi_last_notification_date
+msgid "Papi Last Notification"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__papi_last_sync_date
+msgid "Papi Last Status Check"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__papi_link_expiration
+msgid "Papi Link Expiration"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__papi_link_status
+msgid "Papi Link Status"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__papi_message
+msgid "Papi Message"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_webhook_secret
+msgid "Papi Notification Signing Secret"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__papi_notification_token
+msgid "Papi Notification Token"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__papi_payment_method
+msgid "Papi Payment Instrument"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__papi_payment_link
+msgid "Papi Payment Link"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__papi_payment_status
+msgid "Papi Payment Status"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_shop_name
+msgid "Papi Shop"
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+msgid ""
+"Papi answered with an unexpected status (HTTP %(status)s, code %(code)s)."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid ""
+"Papi has no sandbox. In test mode, payments are flagged as tests in the Papi\n"
+"                        dashboard but <strong>Mobile Money payments are real and debit the payer</strong>.\n"
+"                        Use the Papi shop \"Test Mode\" with the test card to test without moving money."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+msgid "Papi refused the API key. Check that it is the key of the right shop."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid ""
+"Papi status: link %(link)s, payment %(payment)s. Odoo status: %(state)s."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_transaction_search
+msgid "Papi: not final"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.actions.server,name:payment_papi.cron_papi_sync_pending_ir_actions_server
+msgid "Papi: synchronize pending transactions"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_link_validity
+msgid "Payment Link Validity (hours)"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model,name:payment_papi.model_payment_provider
+msgid "Payment Provider"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model,name:payment_papi.model_payment_transaction
+msgid "Payment Transaction"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_status__pending
+msgid "Pending"
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "Received data with missing reference."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_status__success
+msgid "Success"
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Test the Connection"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_api_key
+msgid ""
+"The API key of the Papi shop, available in the Papi dashboard under Shops > "
+"Developer. One API key identifies one Papi shop."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "The API returned an unexpected response."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+msgid "The Papi API URL must start with https://."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+msgid "The Papi notification signing secret must start with '%s'."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "The Papi payment link has been disabled."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "The Papi payment link has expired."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+msgid ""
+"The Papi payment link validity must be between %(min)s and %(max)s hours."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid ""
+"The amount returned by Papi (%(received)s) does not match the transaction "
+"(%(expected)s)."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "The amount returned by Papi is missing or invalid."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+msgid ""
+"The communication with the API failed (HTTP %(status)s, code %(code)s)."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+msgid "The connection to Papi succeeded: the API key is valid."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid ""
+"The currency returned by Papi (%(received)s) does not match the transaction "
+"(%(expected)s)."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_transaction__papi_message
+msgid ""
+"The last failure reason reported by Papi, or the last error detected by "
+"Odoo."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_shop_name
+msgid ""
+"The name of the Papi shop linked to the API key. Informational only: the "
+"shop is determined by the API key."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid ""
+"The notification token returned by Papi does not match the transaction."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "The reference returned by Papi does not match the transaction."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_webhook_secret
+msgid ""
+"The secret used to verify the X-Papi-Signature header of notifications. It "
+"starts with 'pwhsec_'."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_provider__code
+msgid "The technical code of this payment provider."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_transaction__papi_notification_token
+msgid ""
+"The token returned by Papi when the payment link was created. Papi sends it "
+"back in every notification."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid ""
+"Unknown status received from Papi (link: %(link)s, payment: %(payment)s)."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_transaction__papi_last_sync_date
+msgid "When Odoo last read the status of this transaction from the Papi API."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_transaction__papi_last_notification_date
+msgid ""
+"When Odoo last received a signed notification from Papi for this "
+"transaction."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:payment.provider,pre_msg:payment_papi.payment_provider_papi
+msgid ""
+"You will be redirected to the Papi website to pay with MVola, Orange Money, "
+"Airtel Money or a card."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:payment.provider,auth_msg:payment_papi.payment_provider_papi
+msgid "Your payment has been authorized."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:payment.provider,cancel_msg:payment_papi.payment_provider_papi
+msgid "Your payment has been cancelled."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:payment.provider,pending_msg:payment_papi.payment_provider_papi
+msgid ""
+"Your payment has been successfully processed but is waiting for approval."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:payment.provider,done_msg:payment_papi.payment_provider_papi
+msgid "Your payment has been successfully processed."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "Your payment was refused by Papi (%s). Please try again."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "e.g. My Shop"
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+msgid "minimum amount of %s MGA not reached"
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "no reason given"
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "pwhsec_..."
+msgstr ""
