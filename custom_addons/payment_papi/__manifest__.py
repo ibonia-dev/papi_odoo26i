@@ -1,0 +1,29 @@
+# Part of Papi Odoo integration. See LICENSE file for full copyright and licensing details.
+
+{
+    'name': "Payment Provider: Papi",
+    'version': '18.0.1.0.0',
+    'category': 'Accounting/Payment Providers',
+    'sequence': 350,
+    'summary': "Accept Mobile Money (MVola, Orange Money, Airtel Money) and card payments in "
+               "Madagascar through Papi.",
+    'description': " ",  # Non-empty string to avoid loading the README file.
+    'author': "Papi",
+    'website': "https://papi.mg",
+    'depends': ['payment'],
+    'data': [
+        'views/payment_papi_templates.xml',
+        'views/payment_provider_views.xml',
+        'views/payment_transaction_views.xml',
+
+        'data/payment_method_data.xml',
+        'data/payment_provider_data.xml',
+        'data/ir_cron.xml',
+        'data/payment_provider_setup.xml',
+    ],
+    'images': ['static/description/banner.png'],
+    'post_init_hook': 'post_init_hook',
+    'uninstall_hook': 'uninstall_hook',
+    'installable': True,
+    'license': 'LGPL-3',
+}
