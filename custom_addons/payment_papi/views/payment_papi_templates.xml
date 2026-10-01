@@ -22,20 +22,34 @@
                 <span class="small text-600">Mobile Money &amp; bank card</span>
             </label>
         </xpath>
-        <!-- Do not show the brand logos (MVola, Orange Money, Airtel Money, VISA) for Papi. -->
-        <xpath expr="//t[@t-set='pms_to_display_sudo']" position="attributes">
-            <attribute name="t-value">[] if provider_sudo.code == 'papi' else (pm_sudo.brand_ids or pm_sudo)</attribute>
+        <!-- The Papi logo is already displayed above: hide "Secured by". -->
+        <xpath expr="//t[@t-set='hide_secured_by']" position="attributes">
+            <attribute name="t-value" separator=" " add="or provider_sudo.code == 'papi'"/>
         </xpath>
-        <!-- Show the Papi logo instead of its name in "Secured by". -->
-        <xpath expr="//p[@name='o_payment_secured_by']/span[2]" position="attributes">
-            <attribute name="t-if">provider_sudo.code != 'papi'</attribute>
+    </template>
+
+    <template id="form_logo" inherit_id="payment.form_logo">
+        <!-- Odoo shrinks the logo of a payment method to 45x30 px when storing it, which makes it blurry
+             on high-density screens: display the brands of Papi from the full-size files instead. -->
+        <xpath expr="//span[@t-field]" position="attributes">
+            <attribute name="t-if">not logo_pm_sudo.code.startswith('papi_')</attribute>
         </xpath>
-        <xpath expr="//p[@name='o_payment_secured_by']/span[2]" position="after">
-            <img t-else=""
-                 src="/payment_papi/static/img/papi_logo.png"
-                 alt="Papi"
-                 class="o_payment_papi_secured_logo ms-1"
-            />
+        <xpath expr="//span[@t-field]" position="after">
+            <span t-else=""
+                  class="position-relative d-block rounded overflow-hidden z-1 shadow-sm"
+                  t-att-title="logo_pm_sudo.name"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-delay="0"
+            >
+                <img t-att-src="'/payment/static/img/visa.png' if logo_pm_sudo.code == 'papi_visa'
+                                else '/payment_papi/static/img/%s.png' % logo_pm_sudo.code[5:]"
+                     t-att-alt="logo_pm_sudo.name"
+                     width="45"
+                     height="30"
+                     class="img img-fluid"
+                />
+            </span>
         </xpath>
     </template>
 

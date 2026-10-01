@@ -63,6 +63,16 @@ PAYMENT_METHOD_SELECTION = [
     ('BRED', "Card (BRED)"),
 ]
 
+# The Odoo payment method (brand of the Papi method) matching each payment instrument reported by
+# Papi. It is set on the transaction once the instrument is known, so that Odoo shows the
+# instrument actually used (the card provider settles VISA cards).
+PAYMENT_METHOD_XMLIDS = {
+    'MVOLA': 'payment_papi.payment_method_papi_mvola',
+    'ORANGE_MONEY': 'payment_papi.payment_method_papi_orange_money',
+    'AIRTEL_MONEY': 'payment_papi.payment_method_papi_airtel_money',
+    'BRED': 'payment_papi.payment_method_papi_visa',
+}
+
 # The codes of the payment methods to activate when Papi is activated.
 DEFAULT_PAYMENT_METHOD_CODES = {
     'papi',
