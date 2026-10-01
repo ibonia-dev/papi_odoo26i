@@ -16,4 +16,39 @@
         <field name="supported_currency_ids" eval="[Command.set([ref('base.MGA')])]"/>
     </record>
 
+    <!-- Brands of the Papi payment method. They are not selectable: they only display the
+         logos of the instruments accepted on the Papi payment page next to the method. Their
+         codes are prefixed to avoid clashing with the methods of other providers (e.g. `visa`). -->
+    <record id="payment_method_papi_mvola" model="payment.method">
+        <field name="name">MVola</field>
+        <field name="code">papi_mvola</field>
+        <field name="primary_payment_method_id" ref="payment_method_papi"/>
+        <field name="sequence">10</field>
+        <field name="image" type="base64" file="payment_papi/static/img/mvola.png"/>
+    </record>
+
+    <record id="payment_method_papi_orange_money" model="payment.method">
+        <field name="name">Orange Money</field>
+        <field name="code">papi_orange_money</field>
+        <field name="primary_payment_method_id" ref="payment_method_papi"/>
+        <field name="sequence">20</field>
+        <field name="image" type="base64" file="payment_papi/static/img/orange_money.png"/>
+    </record>
+
+    <record id="payment_method_papi_airtel_money" model="payment.method">
+        <field name="name">Airtel Money</field>
+        <field name="code">papi_airtel_money</field>
+        <field name="primary_payment_method_id" ref="payment_method_papi"/>
+        <field name="sequence">30</field>
+        <field name="image" type="base64" file="payment_papi/static/img/airtel_money.png"/>
+    </record>
+
+    <record id="payment_method_papi_visa" model="payment.method">
+        <field name="name">VISA</field>
+        <field name="code">papi_visa</field>
+        <field name="primary_payment_method_id" ref="payment_method_papi"/>
+        <field name="sequence">40</field>
+        <field name="image" type="base64" file="payment/static/img/visa.png"/>
+    </record>
+
 </odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- A single payment method: the customer chooses the instrument (MVola, Orange Money,
+         Airtel Money, card) on the Papi payment page. -->
+    <record id="payment_method_papi" model="payment.method">
+        <field name="name">Papi (Mobile Money, card)</field>
+        <field name="code">papi</field>
+        <field name="sequence">100</field>
+        <field name="active">False</field>
+        <field name="image" type="base64" file="payment_papi/static/img/papi.png"/>
+        <field name="support_tokenization">False</field>
+        <field name="support_express_checkout">False</field>
+        <field name="supported_country_ids" eval="[Command.set([ref('base.mg')])]"/>
+        <field name="supported_currency_ids" eval="[Command.set([ref('base.MGA')])]"/>
+    </record>
+
+</odoo>

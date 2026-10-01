@@ -22,6 +22,10 @@
                 <span class="small text-600">Mobile Money &amp; bank card</span>
             </label>
         </xpath>
+        <!-- Do not show the brand logos (MVola, Orange Money, Airtel Money, VISA) for Papi. -->
+        <xpath expr="//t[@t-set='pms_to_display_sudo']" position="attributes">
+            <attribute name="t-value">[] if provider_sudo.code == 'papi' else (pm_sudo.brand_ids or pm_sudo)</attribute>
+        </xpath>
         <!-- Show the Papi logo instead of its name in "Secured by". -->
         <xpath expr="//p[@name='o_payment_secured_by']/span[2]" position="attributes">
             <attribute name="t-if">provider_sudo.code != 'papi'</attribute>

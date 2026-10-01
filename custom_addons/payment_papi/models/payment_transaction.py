@@ -62,6 +62,20 @@ class PaymentTransaction(models.Model):
         readonly=True,
         copy=False,
     )
+    papi_error_code = fields.Char(
+        string="Papi Error Code",
+        help="The last error code returned by the Papi API, or detected by Odoo (for instance "
+             "'inconsistent_data' or 'paid_after_cancel'). Used to diagnose blocked transactions.",
+        readonly=True,
+        copy=False,
+    )
+    papi_backend_origin = fields.Boolean(
+        string="Created from the Back-office",
+        help="Whether an operator created the transaction with the \"Pay with Papi\" button of an "
+             "invoice or a sales order, instead of the customer from the checkout or the portal.",
+        readonly=True,
+        copy=False,
+    )
     papi_last_sync_date = fields.Datetime(
         string="Papi Last Status Check",
         help="When Odoo last read the status of this transaction from the Papi API.",
@@ -112,6 +126,13 @@ class PaymentTransaction(models.Model):
         res = super()._get_specific_rendering_values(processing_values)
         if self.provider_code != 'papi':
             return res
+
+        if self.amount < const.MINIMUM_AMOUNT:
+            # The payment forms only filter on the amount due: a partial amount chosen by the
+            # customer (e.g. on the invoice portal) can still be below the minimum of Papi.
+            raise ValidationError("Papi: " + _(
+                "The minimum amount for a Papi payment is %s MGA.", const.MINIMUM_AMOUNT
+            ))
 
         payload = self._papi_prepare_payment_link_payload()
         link_data = self.provider_id._papi_make_request('payment-links', payload=payload)
@@ -307,7 +328,24 @@ class PaymentTransaction(models.Model):
                                    if payment_status in dict(const.PAYMENT_STATUS_SELECTION)
                                    else False,
             'papi_message': message or False,
+            'papi_error_code': False,
         }
+        for status, allowed in (
+            (link_status, const.LINK_STATUS_SELECTION), (payment_status, const.PAYMENT_STATUS_SELECTION)
+        ):
+            if status and status not in dict(allowed):
+                _logger.warning(
+                    "Papi: unrecognized status %s for transaction with reference %s.",
+                    status, self.reference,
+                )
+                values['papi_message'] = _(
+                    "Unrecognized status received from Papi: %s.", status
+                )
+                values['papi_error_code'] = 'unknown_status'
+        if self.papi_error_code == 'paid_after_cancel':
+            # Keep the warning until the merchant has reconciled the payment.
+            values.pop('papi_message')
+            values.pop('papi_error_code')
         if payment_method in dict(const.PAYMENT_METHOD_SELECTION):
             values['papi_payment_method'] = payment_method
         if link_data.get('papiPaymentReference'):
@@ -325,8 +363,19 @@ class PaymentTransaction(models.Model):
                 "Papi: inconsistent data for transaction with reference %s: %s",
                 self.reference, inconsistency,
             )
-            self.papi_message = inconsistency
-            self._set_error("Papi: " + inconsistency)
+            self.write({'papi_message': inconsistency, 'papi_error_code': 'inconsistent_data'})
+            self._set_error(_(
+                "Your payment could not be verified. Please contact us with the reference %s.",
+                self.reference,
+            ))
+            return
+
+        # A payment made on a link whose transaction was cancelled (for instance because the link
+        # had expired) is not confirmed automatically: another transaction may have been created
+        # for the same document in the meantime, and a second confirmation would be a double
+        # processing. The merchant reconciles it manually.
+        if payment_status == const.PAYMENT_STATUS_SUCCESS and self.state == 'cancel':
+            self._papi_flag_payment_after_cancel()
             return
 
         # Update the payment state.
@@ -346,10 +395,7 @@ class PaymentTransaction(models.Model):
         elif is_link_active and not payment_status:
             pass  # The customer has not tried to pay yet; the transaction stays in draft.
         elif is_link_active and payment_status == const.PAYMENT_STATUS_FAILED:
-            self._set_error(_(
-                "Your payment was refused by Papi (%s). Please try again.",
-                message or _("no reason given"),
-            ))
+            self._set_error(_("Your payment was refused by Papi. Please try again."))
         elif link_status == const.LINK_STATUS_EXPIRED:
             self._set_canceled(_("The Papi payment link has expired."))
         elif link_status == const.LINK_STATUS_DISABLED:
@@ -359,10 +405,47 @@ class PaymentTransaction(models.Model):
                 "Papi: unknown status combination for transaction with reference %s: link status "
                 "%s, payment status %s.", self.reference, link_status, payment_status,
             )
-            self.papi_message = _(
-                "Unknown status received from Papi (link: %(link)s, payment: %(payment)s).",
-                link=link_status, payment=payment_status,
-            )
+            self.write({
+                'papi_error_code': 'unknown_status',
+                'papi_message': _(
+                    "Unknown status received from Papi (link: %(link)s, payment: %(payment)s).",
+                    link=link_status, payment=payment_status,
+                ),
+            })
+
+    def _papi_flag_payment_after_cancel(self):
+        """ Flag a transaction that Papi reports as paid although it was cancelled in Odoo.
+
+        The transaction is not confirmed. The merchant is warned on the transaction and on the
+        linked documents, once, and reconciles the payment manually (see `doc/diagnostic.md`).
+
+        Note: self.ensure_one()
+        """
+        self.ensure_one()
+        if self.papi_error_code == 'paid_after_cancel':
+            return
+        message = _(
+            "Papi reports a successful payment for transaction %s, which had been cancelled in "
+            "Odoo. It was not confirmed automatically: check the document and reconcile the "
+            "payment manually.", self.reference,
+        )
+        _logger.warning(
+            "Papi: transaction with reference %s was paid after having been cancelled.",
+            self.reference,
+        )
+        self.write({'papi_error_code': 'paid_after_cancel', 'papi_message': message})
+        self._log_message_on_linked_documents(message)
+
+    def _papi_record_error(self, error):
+        """ Keep on the transaction the technical error that prevented reading its status.
+
+        :param Exception error: The error raised while reading the status from Papi.
+        """
+        self.ensure_one()
+        self.sudo().write({
+            'papi_error_code': getattr(error, 'papi_error_code', False) or 'api_error',
+            'papi_message': str(error),
+        })
 
     def _papi_find_inconsistency(self, link_data):
         """ Return a description of the first mismatch between the Papi data and the transaction.
@@ -425,7 +508,7 @@ class PaymentTransaction(models.Model):
         try:
             tx_sudo._handle_notification_data('papi', {'merchantPaymentReference': self.reference})
         except ValidationError as error:
-            tx_sudo.papi_message = str(error)
+            tx_sudo._papi_record_error(error)
             return self.provider_id._papi_notification(str(error), 'danger')
         return self.provider_id._papi_notification(_(
             "Papi status: link %(link)s, payment %(payment)s. Odoo status: %(state)s.",
@@ -454,7 +537,8 @@ class PaymentTransaction(models.Model):
             try:
                 with self.env.cr.savepoint():
                     tx._handle_notification_data('papi', {'merchantPaymentReference': tx.reference})
-            except Exception:  # noqa: BLE001 - One failing transaction must not block the others.
+            except Exception as error:  # noqa: BLE001 - One failing transaction must not block the others.
                 _logger.exception(
                     "Papi: unable to synchronize transaction with reference %s.", tx.reference
                 )
+                tx._papi_record_error(error)

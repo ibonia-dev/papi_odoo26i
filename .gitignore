@@ -1,0 +1,8 @@
+/venv18
+/.idea
+.DS_Store
+__pycache__/
+*.pyc
+/tools
+/compat
+/ports/*/*/__pycache__

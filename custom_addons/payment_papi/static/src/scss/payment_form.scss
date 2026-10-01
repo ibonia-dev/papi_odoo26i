@@ -1,0 +1,28 @@
+// The Papi option of the payment form.
+.o_payment_form li[name="o_payment_option"]:has(input[data-provider-code="papi"]) {
+    transition: background-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    .o_payment_papi_logo {
+        width: auto;
+        height: 1.375rem;
+        object-fit: contain;
+        align-self: flex-start;
+    }
+
+    .o_payment_papi_secured_logo {
+        width: auto;
+        height: .875rem;
+        vertical-align: -.125rem;
+    }
+
+    // Vertically center the radio on the logo row (not on the whole logo + subtitle block).
+    input[name="o_payment_radio"] {
+        align-self: flex-start;
+        margin-top: calc((1.375rem - 1em) / 2) !important;
+    }
+
+    &:has(input[name="o_payment_radio"]:checked) {
+        background-color: rgba($primary, .04);
+        box-shadow: inset 0 0 0 $border-width $primary;
+    }
+}
