@@ -7,6 +7,7 @@ from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 from odoo.tools import mute_logger
 
+from odoo.addons.payment_papi.models.payment_provider import PapiApiError
 from odoo.addons.payment_papi.tests.common import PapiCommon
 
 
@@ -131,11 +132,43 @@ class TestPaymentTransaction(PapiCommon):
         tx = self._create_papi_transaction()
         self._process(tx, self._link_status_data('ACTIVE', 'FAILED', message="Solde insuffisant"))
         self.assertEqual(tx.state, 'error')
-        self.assertIn("Solde insuffisant", tx.state_message)
+        # The reason given by Papi is for the merchant only, not for the customer.
+        self.assertNotIn("Solde insuffisant", tx.state_message)
+        self.assertEqual(tx.papi_message, "Solde insuffisant")
 
         # The customer tries again on the same payment link and succeeds.
         self._process(tx, self._link_status_data('PAID', 'SUCCESS'))
         self.assertEqual(tx.state, 'done')
+
+    @mute_logger('odoo.addons.payment_papi.models.payment_transaction')
+    def test_payment_after_cancellation_is_flagged_not_confirmed(self):
+        tx = self._create_papi_transaction()
+        self._process(tx, self._link_status_data('EXPIRED', None))
+        self.assertEqual(tx.state, 'cancel')
+
+        # The customer paid just before the link expired and Papi now reports the payment.
+        self._process(tx, self._link_status_data('PAID', 'SUCCESS'))
+        self.assertEqual(tx.state, 'cancel')
+        self.assertEqual(tx.papi_error_code, 'paid_after_cancel')
+        self.assertIn(tx.reference, tx.papi_message)
+
+        # Reading the status again does not flag it a second time.
+        with patch.object(type(tx), '_log_message_on_linked_documents') as log_mock:
+            self._process(tx, self._link_status_data('PAID', 'SUCCESS'))
+        self.assertEqual(log_mock.call_count, 0)
+
+    def test_successful_status_check_clears_the_error_code(self):
+        tx = self._create_papi_transaction(papi_error_code='api_error')
+        self._process(tx, self._link_status_data('PAID', 'SUCCESS'))
+        self.assertFalse(tx.papi_error_code)
+
+    def test_record_error_keeps_the_api_error_code(self):
+        tx = self._create_papi_transaction()
+        tx._papi_record_error(PapiApiError("Papi: down", papi_error_code='HTTP 503'))
+        self.assertEqual(tx.papi_error_code, 'HTTP 503')
+        self.assertEqual(tx.papi_message, "Papi: down")
+        tx._papi_record_error(ValidationError("Papi: other"))
+        self.assertEqual(tx.papi_error_code, 'api_error')
 
     def test_expired_link_cancels_transaction(self):
         tx = self._create_papi_transaction()
@@ -153,6 +186,7 @@ class TestPaymentTransaction(PapiCommon):
         self._process(tx, self._link_status_data('WEIRD', 'SUCCESS?'))
         self.assertEqual(tx.state, 'draft')
         self.assertIn("WEIRD", tx.papi_message)
+        self.assertEqual(tx.papi_error_code, 'unknown_status')
 
     #=== Consistency checks ===#
 
@@ -162,6 +196,10 @@ class TestPaymentTransaction(PapiCommon):
         self._process(tx, self._link_status_data('PAID', 'SUCCESS', amount=300.0))
         self.assertEqual(tx.state, 'error')
         self.assertIn("300.0", tx.papi_message)
+        self.assertEqual(tx.papi_error_code, 'inconsistent_data')
+        # The customer sees a generic message with the reference, not the amounts.
+        self.assertNotIn("300.0", tx.state_message)
+        self.assertIn(tx.reference, tx.state_message)
 
     @mute_logger('odoo.addons.payment_papi.models.payment_transaction')
     def test_currency_mismatch_does_not_confirm(self):

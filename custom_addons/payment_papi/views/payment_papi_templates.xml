@@ -5,4 +5,34 @@
         <form t-att-action="api_url" method="get"/>
     </template>
 
+    <template id="method_form" inherit_id="payment.method_form">
+        <!-- Show the Papi logo and a short subtitle instead of the plain method name. -->
+        <xpath expr="//label[hasclass('o_payment_option_label')]" position="attributes">
+            <attribute name="t-if">pm_sudo.code != 'papi'</attribute>
+        </xpath>
+        <xpath expr="//label[hasclass('o_payment_option_label')]" position="after">
+            <label t-else=""
+                   class="o_payment_option_label o_payment_papi_label d-flex flex-column gap-1 mb-0"
+                   t-attf-for="o_payment_method_{{pm_sudo.id}}"
+            >
+                <img src="/payment_papi/static/img/papi_logo.png"
+                     alt="Papi"
+                     class="o_payment_papi_logo"
+                />
+                <span class="small text-600">Mobile Money &amp; bank card</span>
+            </label>
+        </xpath>
+        <!-- Show the Papi logo instead of its name in "Secured by". -->
+        <xpath expr="//p[@name='o_payment_secured_by']/span[2]" position="attributes">
+            <attribute name="t-if">provider_sudo.code != 'papi'</attribute>
+        </xpath>
+        <xpath expr="//p[@name='o_payment_secured_by']/span[2]" position="after">
+            <img t-else=""
+                 src="/payment_papi/static/img/papi_logo.png"
+                 alt="Papi"
+                 class="o_payment_papi_secured_logo ms-1"
+            />
+        </xpath>
+    </template>
+
 </odoo>

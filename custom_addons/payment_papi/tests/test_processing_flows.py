@@ -110,6 +110,25 @@ class TestProcessingFlows(PapiCommon, PaymentHttpCommon):
         self.assertEqual(handle_mock.call_count, 0)
         self.assertEqual(tx.state, 'draft')
 
+    @mute_logger('odoo.addons.payment_papi.controllers.main', 'odoo.http')
+    def test_webhook_answers_the_same_for_known_and_unknown_references_without_signature(self):
+        """ The signature is checked before the lookup: nothing reveals which references exist. """
+        tx = self._create_papi_transaction()
+        for reference in (tx.reference, 'unknown-reference'):
+            response = self._post_webhook(
+                self._notification_body(merchantPaymentReference=reference),
+                signature='t=1,v1=dead',
+            )
+            self.assertEqual(response.status_code, 403)
+
+    @mute_logger('odoo.addons.payment_papi.controllers.main')
+    def test_webhook_acknowledges_unexpected_processing_errors(self):
+        tx = self._create_papi_transaction()
+        with patch(HANDLE_NOTIFICATION, side_effect=RuntimeError("boom")):
+            response = self._post_webhook(self._notification_body())
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(tx.papi_error_code, 'api_error')
+
     @mute_logger('odoo.addons.payment_papi.controllers.main')
     def test_webhook_for_unknown_reference_is_acknowledged(self):
         response = self._post_webhook(self._notification_body(merchantPaymentReference='nope'))

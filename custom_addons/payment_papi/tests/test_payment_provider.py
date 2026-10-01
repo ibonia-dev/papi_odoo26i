@@ -164,3 +164,17 @@ class TestPaymentProvider(PapiCommon):
         self.assertIn('CORE_INPUT_400', output)
         self.assertNotIn(self.papi.papi_api_key, output)
         self.assertNotIn(self.papi.papi_webhook_secret, output)
+
+    @mute_logger('odoo.addons.payment_papi.models.payment_provider')
+    def test_api_error_shown_to_the_customer_has_no_technical_detail(self):
+        response = self._mock_response(
+            400, {'error': {'code': 'CORE_INPUT_400', 'message': "Montant invalide"}}
+        )
+        with patch('requests.post', return_value=response), \
+                self.assertRaises(ValidationError) as error:
+            self.papi._papi_make_request('payment-links', payload={'amount': 1})
+        message = str(error.exception)
+        for detail in ('CORE_INPUT_400', 'HTTP', '400', 'Montant invalide'):
+            self.assertNotIn(detail, message)
+        # The detail stays available to the merchant.
+        self.assertEqual(error.exception.papi_error_code, 'HTTP 400 CORE_INPUT_400')
