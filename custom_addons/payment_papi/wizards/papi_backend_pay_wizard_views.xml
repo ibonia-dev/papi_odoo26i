@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="papi_backend_pay_wizard_form" model="ir.ui.view">
+        <field name="name">papi.backend.pay.wizard.form</field>
+        <field name="model">papi.backend.pay.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Pay with Papi">
+                <field name="res_model" invisible="1"/>
+                <field name="res_id" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="is_test_mode" invisible="1"/>
+                <div class="alert alert-warning" role="alert" invisible="not is_test_mode">
+                    Papi is in test mode, but Papi has no sandbox: <strong>Mobile Money payments
+                    are real and debit the payer</strong>. To test without moving money, use the
+                    "Test Mode" of the Papi shop with the test card.
+                </div>
+                <p class="text-muted">
+                    A Papi payment page opens in a new tab. The customer pays with MVola, Orange
+                    Money, Airtel Money or a card, and the document is updated once Papi confirms
+                    the payment.
+                </p>
+                <group>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="payer_phone" placeholder="e.g. 034 12 345 67"/>
+                    </group>
+                    <group>
+                        <field name="amount_max"/>
+                        <field name="amount"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_pay" type="object" string="Open Papi Payment Page"
+                            class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

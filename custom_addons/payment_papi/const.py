@@ -66,4 +66,9 @@ PAYMENT_METHOD_SELECTION = [
 # The codes of the payment methods to activate when Papi is activated.
 DEFAULT_PAYMENT_METHOD_CODES = {
     'papi',
+    # Brand payment methods, only displayed as logos next to the Papi method.
+    'papi_mvola',
+    'papi_orange_money',
+    'papi_airtel_money',
+    'papi_visa',
 }
