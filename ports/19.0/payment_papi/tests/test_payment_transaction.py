@@ -114,6 +114,8 @@ class TestPaymentTransaction(PapiCommon):
         self.assertEqual(tx.state, 'done')
         self.assertEqual(tx.provider_reference, self.papi_payment_reference)
         self.assertEqual(tx.papi_payment_method, 'MVOLA')
+        self.assertEqual(tx.payment_method_id, self.env.ref('payment_papi.payment_method_papi_mvola'))
+        self.assertEqual(tx.provider_id, self.papi)
         self.assertEqual(tx.papi_link_status, 'PAID')
         self.assertEqual(tx.papi_payment_status, 'SUCCESS')
         self.assertTrue(tx.papi_last_sync_date)

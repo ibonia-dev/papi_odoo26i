@@ -2,7 +2,7 @@
 
 {
     'name': "Payment Provider: Papi",
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.2',
     'category': 'Accounting/Payment Providers',
     'sequence': 350,
     'summary': "Accept Mobile Money (MVola, Orange Money, Airtel Money) and card payments in "
@@ -24,6 +24,11 @@
         'data/ir_cron.xml',
         'data/payment_provider_setup.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'payment_papi/static/src/scss/payment_form.scss',
+        ],
+    },
     'images': ['static/description/banner.png'],
     'post_init_hook': 'post_init_hook',
     'uninstall_hook': 'uninstall_hook',

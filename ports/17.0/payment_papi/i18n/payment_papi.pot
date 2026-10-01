@@ -186,6 +186,11 @@ msgid "MVola"
 msgstr ""
 
 #. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
+msgid "Mobile Money &amp; bank card"
+msgstr ""
+
+#. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
 msgid "No transaction found matching reference %s."

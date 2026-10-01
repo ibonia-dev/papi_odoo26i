@@ -344,6 +344,11 @@ class PaymentTransaction(models.Model):
             values.pop('papi_error_code')
         if payment_method in dict(const.PAYMENT_METHOD_SELECTION):
             values['papi_payment_method'] = payment_method
+            brand_method = self.env.ref(
+                const.PAYMENT_METHOD_XMLIDS[payment_method], raise_if_not_found=False
+            )
+            if brand_method:
+                values['payment_method_id'] = brand_method.id
         if link_data.get('papiPaymentReference'):
             values['provider_reference'] = link_data['papiPaymentReference']
         if link_data.get('linkExpirationDateTime'):
