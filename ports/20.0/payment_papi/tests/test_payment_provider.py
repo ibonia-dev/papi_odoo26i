@@ -15,7 +15,7 @@ from odoo.addons.payment_papi.tests.common import PapiCommon
 class TestPaymentProvider(PapiCommon):
 
     def _get_compatible(self, amount, currency=None, **kwargs):
-        return self.env['payment.provider']._get_compatible_providers(
+        return self.env['payment.provider']._find_available_providers(
             self.company_id, self.partner.id, amount,
             currency_id=(currency or self.currency_mga).id, **kwargs
         )
@@ -24,7 +24,10 @@ class TestPaymentProvider(PapiCommon):
         self.assertIn(self.papi, self._get_compatible(15000))
 
     def test_incompatible_below_minimum_amount(self):
-        self.assertNotIn(self.papi, self._get_compatible(299))
+        report = {}
+        providers = self._get_compatible(299, report=report)
+        self.assertNotIn(self.papi, providers)
+        self.assertFalse(report['providers'][self.papi]['available'])
 
     def test_minimum_amount_is_inclusive(self):
         self.assertIn(self.papi, self._get_compatible(300))

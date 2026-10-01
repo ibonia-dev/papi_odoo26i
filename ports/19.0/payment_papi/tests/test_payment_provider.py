@@ -45,7 +45,10 @@ class TestPaymentProvider(PapiCommon):
         self.assertNotIn(self.papi, self._get_compatible(15000))
 
     def test_default_payment_method_codes(self):
-        self.assertEqual(self.papi._get_default_payment_method_codes(), {'papi'})
+        self.assertEqual(
+            self.papi._get_default_payment_method_codes(),
+            {'papi', 'papi_mvola', 'papi_orange_money', 'papi_airtel_money', 'papi_visa'},
+        )
 
     def test_post_init_setup_activates_mga(self):
         self.currency_mga.active = False
