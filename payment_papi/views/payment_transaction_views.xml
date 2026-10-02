@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_transaction_form" model="ir.ui.view">
+        <field name="name">Papi Transaction Form</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.payment_transaction_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_papi_check_status"
+                        type="object"
+                        string="Check Papi Status"
+                        invisible="provider_code != 'papi' or not papi_link_status"/>
+            </header>
+            <group name="transaction_details" position="after">
+                <group string="Papi" name="papi_details" invisible="provider_code != 'papi'">
+                    <field name="papi_link_status"/>
+                    <field name="papi_payment_status"/>
+                    <field name="papi_payment_method"/>
+                    <field name="papi_message" invisible="not papi_message"/>
+                    <field name="papi_error_code" invisible="not papi_error_code"/>
+                    <field name="papi_backend_origin"/>
+                    <field name="papi_link_expiration"/>
+                    <field name="papi_last_notification_date"/>
+                    <field name="papi_last_sync_date"/>
+                    <field name="papi_payment_link" widget="url" groups="base.group_no_one"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record id="payment_transaction_search" model="ir.ui.view">
+        <field name="name">Papi Transaction Search</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.payment_transaction_search"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <filter string="Papi: not final"
+                        name="papi_not_final"
+                        domain="[('provider_code', '=', 'papi'), ('state', 'in', ('draft', 'pending', 'error'))]"/>
+                <filter string="Papi: needs attention"
+                        name="papi_needs_attention"
+                        domain="[('provider_code', '=', 'papi'), ('papi_error_code', '!=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Papi Payment Status"
+                            name="group_by_papi_payment_status"
+                            context="{'group_by': 'papi_payment_status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="payment_transaction_list" model="ir.ui.view">
+        <field name="name">Papi Transaction List</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.payment_transaction_list"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="papi_payment_status" optional="hide"/>
+                <field name="papi_payment_method" optional="hide"/>
+                <field name="papi_error_code" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

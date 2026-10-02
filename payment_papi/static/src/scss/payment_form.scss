@@ -1,0 +1,32 @@
+// The Papi option of the payment form.
+.o_payment_form li[name="o_payment_option"]:has(input[data-provider-code="papi"]) {
+    transition: background-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    .o_payment_papi_logo {
+        width: auto;
+        height: 1.375rem;
+        object-fit: contain;
+        align-self: flex-start;
+    }
+
+    // Align the radio with the Papi logo (first row) instead of centering it on logo + subtitle.
+    input[name="o_payment_radio"] {
+        align-self: flex-start;
+        margin-top: calc((1.375rem - 1em) / 2) !important;
+    }
+
+    // The brand logos (MVola, Orange Money, Airtel Money, VISA) have a white background: give
+    // them an edge so that they read as cards.
+    span.shadow-sm {
+        border: $border-width solid $border-color;
+
+        img {
+            display: block;
+        }
+    }
+
+    &:has(input[name="o_payment_radio"]:checked) {
+        background-color: rgba($primary, .04);
+        box-shadow: inset 0 0 0 $border-width $primary;
+    }
+}
