@@ -30,13 +30,8 @@
                  role="alert"
                  name="papi_minimum_amount_warning"
             >
-                <strong>Papi cannot be used for this amount.</strong>
-                The minimum for a Papi payment is
-                <strong t-out="provider_sudo.papi_minimum_amount"
-                        t-options="{'widget': 'monetary', 'display_currency': currency}"
-                />, and this payment is only
-                <span t-out="amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>.
-                Increase the amount, or choose another payment method.
+                <div class="fw-bold">Papi cannot be used for this amount.</div>
+                <div t-out="provider_sudo.papi_minimum_amount_warning"/>
             </div>
         </xpath>
         <!-- The Papi logo is already displayed above: hide "Secured by". -->

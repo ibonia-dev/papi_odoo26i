@@ -34,7 +34,7 @@ class PapiBackendPayWizard(models.TransientModel):
     )
     is_test_mode = fields.Boolean(compute='_compute_is_test_mode')
     is_below_minimum = fields.Boolean(compute='_compute_is_below_minimum')
-    minimum_amount = fields.Integer(compute='_compute_is_below_minimum')
+    minimum_message = fields.Char(compute='_compute_is_below_minimum')
 
     #=== COMPUTE METHODS ===#
 
@@ -77,7 +77,10 @@ class PapiBackendPayWizard(models.TransientModel):
     def _compute_is_below_minimum(self):
         """ Warn the operator when the amount is below the minimum that Papi accepts. """
         for wizard in self:
-            wizard.minimum_amount = const.MINIMUM_AMOUNT
+            wizard.minimum_message = _(
+                "The minimum for a Papi payment is %(minimum)s MGA. Increase the amount, or choose "
+                "another payment method.", minimum=const.MINIMUM_AMOUNT,
+            )
             wizard.is_below_minimum = (
                 wizard.currency_id.name in const.SUPPORTED_CURRENCIES
                 and wizard.amount < const.MINIMUM_AMOUNT
@@ -154,11 +157,7 @@ class PapiBackendPayWizard(models.TransientModel):
                 self.amount_max,
             ))
         if self.is_below_minimum:
-            raise UserError(_(
-                "The minimum amount for a Papi payment is %(minimum)s MGA. Increase the amount to "
-                "pay, or use another payment method.",
-                minimum=const.MINIMUM_AMOUNT,
-            ))
+            raise UserError(self.minimum_message)
         provider = document._papi_backend_get_provider(self.amount)
         if not provider:
             raise UserError(_(

@@ -72,6 +72,10 @@ class PaymentProvider(models.Model):
         compute='_compute_papi_minimum_amount',
         help="The minimum amount, in MGA, that Papi accepts for a payment.",
     )
+    papi_minimum_amount_warning = fields.Char(
+        compute='_compute_papi_minimum_amount',
+        help="The message shown to the customer when the amount is below the minimum of Papi.",
+    )
 
     #=== COMPUTE METHODS ===#
 
@@ -79,6 +83,10 @@ class PaymentProvider(models.Model):
         """ Expose the minimum amount of Papi to the payment form, which shows a warning below it. """
         for provider in self:
             provider.papi_minimum_amount = const.MINIMUM_AMOUNT
+            provider.papi_minimum_amount_warning = _(
+                "The minimum for a Papi payment is %(minimum)s MGA. Increase the amount, or choose "
+                "another payment method.", minimum=const.MINIMUM_AMOUNT,
+            )
 
     @api.depends('state')
     def _compute_papi_state(self):

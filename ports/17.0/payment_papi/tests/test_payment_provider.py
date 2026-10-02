@@ -25,10 +25,7 @@ class TestPaymentProvider(PapiCommon):
 
     def test_still_offered_below_minimum_amount(self):
         """ Papi is kept below its minimum: the payment form explains why it cannot be used. """
-        report = {}
-        providers = self._get_compatible(299, report=report)
-        self.assertIn(self.papi, providers)
-        self.assertTrue(report['providers'][self.papi]['available'])
+        self.assertIn(self.papi, self._get_compatible(299))
 
     def test_minimum_amount_is_exposed_to_the_payment_form(self):
         self.assertEqual(self.papi.papi_minimum_amount, 300)

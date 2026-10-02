@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-02 10:09+0000\n"
-"PO-Revision-Date: 2026-10-02 10:09+0000\n"
+"POT-Creation-Date: 2026-10-02 11:18+0000\n"
+"PO-Revision-Date: 2026-10-02 11:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -146,6 +146,7 @@ msgid "Customer"
 msgstr ""
 
 #. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_provider__papi_state__disabled
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_link_status__disabled
 msgid "Disabled"
 msgstr ""
@@ -163,6 +164,11 @@ msgstr ""
 #. module: payment_papi
 #: model:ir.model.fields,field_description:payment_papi.field_papi_backend_pay_wizard__res_model
 msgid "Document Model"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_provider__papi_state__enabled
+msgid "Enabled"
 msgstr ""
 
 #. module: payment_papi
@@ -188,6 +194,11 @@ msgstr ""
 #. module: payment_papi
 #: model:ir.model.fields,field_description:payment_papi.field_papi_backend_pay_wizard__id
 msgid "ID"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_papi_backend_pay_wizard__is_below_minimum
+msgid "Is Below Minimum"
 msgstr ""
 
 #. module: payment_papi
@@ -218,6 +229,11 @@ msgstr ""
 #. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__mvola
 msgid "MVola"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_papi_backend_pay_wizard__minimum_message
+msgid "Minimum Message"
 msgstr ""
 
 #. module: payment_papi
@@ -304,6 +320,16 @@ msgid "Papi Message"
 msgstr ""
 
 #. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_minimum_amount
+msgid "Papi Minimum Amount"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_minimum_amount_warning
+msgid "Papi Minimum Amount Warning"
+msgstr ""
+
+#. module: payment_papi
 #: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_webhook_secret
 msgid "Papi Notification Signing Secret"
 msgstr ""
@@ -343,8 +369,19 @@ msgid ""
 msgstr ""
 
 #. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
+#: model_terms:ir.ui.view,arch_db:payment_papi.papi_backend_pay_wizard_form
+msgid "Papi cannot be used for this amount."
+msgstr ""
+
+#. module: payment_papi
 #: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
 msgid "Papi dashboard"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_state
+msgid "Papi has no sandbox, so the test mode of Odoo is not offered for now."
 msgstr ""
 
 #. module: payment_papi
@@ -373,8 +410,8 @@ msgstr ""
 #: code:addons/payment_papi/wizards/papi_backend_pay_wizard.py:0
 #, python-format
 msgid ""
-"Papi is not available for this document. Papi must be enabled, the document "
-"must be in MGA, and the amount must be at least %(minimum)s MGA."
+"Papi is not available for this document. Papi must be enabled and the "
+"document must be in MGA."
 msgstr ""
 
 #. module: payment_papi
@@ -466,6 +503,11 @@ msgstr ""
 #: code:addons/payment_papi/models/payment_transaction.py:0
 #, python-format
 msgid "Received data with missing reference."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_state
+msgid "State"
 msgstr ""
 
 #. module: payment_papi
@@ -598,10 +640,32 @@ msgid ""
 msgstr ""
 
 #. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_minimum_amount_warning
+msgid ""
+"The message shown to the customer when the amount is below the minimum of "
+"Papi."
+msgstr ""
+
+#. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
 #, python-format
 msgid "The minimum amount for a Papi payment is %s MGA."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_minimum_amount
+msgid "The minimum amount, in MGA, that Papi accepts for a payment."
+msgstr ""
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_provider.py:0
+#: code:addons/payment_papi/wizards/papi_backend_pay_wizard.py:0
+#, python-format
+msgid ""
+"The minimum for a Papi payment is %(minimum)s MGA. Increase the amount, or "
+"choose another payment method."
 msgstr ""
 
 #. module: payment_papi

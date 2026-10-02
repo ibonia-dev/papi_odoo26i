@@ -1,14 +1,30 @@
+<style>
+    .papi-doc { color: #333; line-height: 1.6; }
+    .papi-doc .oe_slogan { color: #5B2C91; }
+    .papi-doc .oe_container { max-width: 960px; margin-left: auto; margin-right: auto; padding: 0 16px; }
+    .papi-doc .oe_dark { background: #f6f3fa; border-radius: 8px; }
+    .papi-doc h4 { color: #5B2C91; margin-top: 40px; padding-left: 12px; border-left: 4px solid #5B2C91; }
+    .papi-doc img.border { display: block; width: 100%; max-width: 100%; height: auto; margin: 16px auto 8px; border: 1px solid #d9d4e3 !important; border-radius: 8px; box-shadow: 0 2px 8px rgba(91, 44, 145, .12); }
+    .papi-doc .alert-warning { background: #fff8e1; border-left: 4px solid #f5a623; padding: 10px 14px; border-radius: 4px; }
+    .papi-doc table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .papi-doc th, .papi-doc td { padding: 8px 10px; border-bottom: 1px solid #e3deec; text-align: left; vertical-align: top; }
+    .papi-doc thead th { background: #5B2C91; color: #fff; }
+    .papi-doc code { background: #efe9f7; color: #5B2C91; padding: 1px 5px; border-radius: 3px; }
+    .papi-doc li { margin-bottom: 4px; }
+    @media (max-width: 600px) { .papi-doc h4 { margin-top: 28px; } }
+</style>
+<div class="papi-doc">
 <section class="oe_container">
     <div class="oe_row oe_spaced">
         <div class="oe_span12 text-center">
-            <h2 class="oe_slogan" style="color:#5B2C91;">Papi Payment Provider for Odoo</h2>
-            <h3 class="oe_slogan">Accept MVola, Orange Money, Airtel Money and card payments in Madagascar</h3>
-            <img src="banner.png" alt="Papi for Odoo" class="img img-fluid" style="max-width:560px;"/>
+            <h2 class="oe_slogan" style="color:#5B2C91;">Fournisseur de paiement Papi pour Odoo</h2>
+            <h3 class="oe_slogan">Acceptez les paiements MVola, Orange Money, Airtel Money et carte bancaire à Madagascar</h3>
+            <img src="banner.png" alt="Papi pour Odoo" class="img img-fluid" style="max-width:560px;"/>
             <p class="oe_mt16">
                 <span class="badge" style="background:#5B2C91;color:#fff;">Odoo 17 &middot; 18 &middot; 19 &middot; 20</span>
-                <span class="badge" style="background:#5B2C91;color:#fff;">Community tested</span>
+                <span class="badge" style="background:#5B2C91;color:#fff;">Testé sur Community</span>
                 <span class="badge" style="background:#5B2C91;color:#fff;">MGA</span>
-                <span class="badge" style="background:#5B2C91;color:#fff;">95 automated tests</span>
+                <span class="badge" style="background:#5B2C91;color:#fff;">95 tests automatisés</span>
                 <span class="badge" style="background:#5B2C91;color:#fff;">LGPL-3</span>
             </p>
         </div>
@@ -43,24 +59,24 @@
 <section class="oe_container oe_dark">
     <div class="oe_row oe_spaced">
         <div class="oe_span12">
-            <h3 class="oe_slogan">A native Odoo payment provider</h3>
+            <h3 class="oe_slogan">Un fournisseur de paiement natif pour Odoo</h3>
             <p class="oe_mt32">
-                Papi appears next to the other payment providers of Odoo. Your customers select
-                Papi at checkout, pay on the secure Papi page with the instrument of their choice,
-                and come back to your website. Orders are confirmed automatically once Papi has
-                confirmed the payment.
+                Papi apparaît à côté des autres fournisseurs de paiement d'Odoo. Vos clients choisissent
+                Papi au moment du paiement, règlent sur la page sécurisée de Papi avec le moyen de paiement
+                de leur choix, puis reviennent sur votre site. Les commandes sont confirmées automatiquement
+                dès que Papi a confirmé le paiement.
             </p>
             <ul>
-                <li><b>eCommerce</b> checkout, <b>customer portal invoices</b>, online quotations and payment links</li>
-                <li><b>"Pay with Papi" button</b> on invoices and sales orders: a back-office operator can collect a payment on behalf of the customer</li>
-                <li>MVola, Orange Money, Airtel Money and card (BRED), chosen on the Papi page</li>
-                <li>Signed server-to-server notifications (HMAC-SHA256), replay protection</li>
-                <li>Status always re-checked with the Papi API: a customer return is never trusted as a proof of payment</li>
-                <li>Idempotent processing: repeated notifications never confirm an order twice</li>
-                <li>Automatic catch-up of lost notifications and expired payment links</li>
-                <li>Papi reference, status, instrument, failure reason and error code visible on each transaction</li>
-                <li>"Test the Connection" and "Check Papi Status" buttons for diagnosis</li>
-                <li>Secrets restricted to administrators and never written to the logs</li>
+                <li>Paiement <b>eCommerce</b>, <b>factures du portail client</b>, devis en ligne et liens de paiement</li>
+                <li><b>Bouton « Payer avec Papi »</b> sur les factures et les commandes : un opérateur du back-office peut encaisser un paiement pour le compte du client</li>
+                <li>MVola, Orange Money, Airtel Money et carte bancaire (BRED), au choix sur la page Papi</li>
+                <li>Notifications serveur à serveur signées (HMAC-SHA256), protection contre le rejeu</li>
+                <li>Statut toujours revérifié auprès de l'API Papi : le retour du client n'est jamais considéré comme une preuve de paiement</li>
+                <li>Traitement idempotent : des notifications répétées ne confirment jamais une commande deux fois</li>
+                <li>Rattrapage automatique des notifications perdues et des liens de paiement expirés</li>
+                <li>Référence Papi, statut, moyen de paiement, motif d'échec et code d'erreur visibles sur chaque transaction</li>
+                <li>Boutons « Tester la connexion » et « Vérifier le statut Papi » pour le diagnostic</li>
+                <li>Secrets réservés aux administrateurs et jamais écrits dans les journaux</li>
             </ul>
         </div>
     </div>
@@ -69,75 +85,113 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
         <div class="oe_span12">
-            <h3 class="oe_slogan">Requirements / Configuration requise</h3>
-            <table class="table table-sm">
-                <tbody>
-                    <tr><th>Odoo</th><td><b>17.0, 18.0, 19.0 or 20.0</b> (one package per version). Tested on Community; Enterprise not tested</td></tr>
-                    <tr><th>Hosting</th><td><b>Odoo.sh or on-premise</b>. <b>Odoo Online (SaaS) is not supported</b>: it does not allow third-party modules</td></tr>
-                    <tr><th>Python / PostgreSQL</th><td>Python 3.10+ and the PostgreSQL version supported by your Odoo; only the standard Odoo dependencies (<code>requests</code>)</td></tr>
-                    <tr><th>Odoo apps</th><td><code>account_payment</code> (installed automatically); <code>website_sale</code> for the eCommerce checkout; <code>sale</code> for quotations and sales orders</td></tr>
-                    <tr><th>Currency</th><td><b>MGA</b> (Ariary) enabled, with an MGA pricelist for eCommerce; minimum amount 300 MGA</td></tr>
-                    <tr><th>Public URL</th><td><code>web.base.url</code> set to your public <b>HTTPS</b> address, so Papi can reach <code>/payment/papi/webhook</code>. Behind a reverse proxy: <code>proxy_mode = True</code> and keep the <code>X-Papi-Signature</code> header</td></tr>
-                    <tr><th>Network</th><td>Inbound HTTPS to the webhook (no IP filtering); outbound HTTPS (443) to <code>app.papi.mg</code></td></tr>
-                    <tr><th>Papi account</th><td>A verified Papi shop with its API key and notification signing secret (<a href="https://dashboard.papi.mg/authentication/signup">sign up</a>)</td></tr>
-                </tbody>
-            </table>
-            <div class="alert alert-warning">
-                Papi has no sandbox. In Odoo "Test" mode, Mobile Money payments are real. Use the
-                Test Mode of your Papi shop with the test card to test without moving money.
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="oe_container">
-    <div class="oe_row oe_spaced">
-        <div class="oe_span12">
-            <h3 class="oe_slogan">Up and running in four steps</h3>
+            <h3 class="oe_slogan">Opérationnel en quatre étapes</h3>
             <ol class="oe_mt16">
-                <li><b>Install</b> the package matching your Odoo version (<code>payment_papi</code>; the sales-order bridge <code>payment_papi_sale</code> comes with it).</li>
-                <li><b>Copy two secrets</b> from <a href="https://dashboard.papi.mg">dashboard.papi.mg</a> (shop &rarr; <i>Developer</i> tab): the API key and the notification signing secret.</li>
-                <li><b>Paste them</b> in <i>Accounting &rarr; Configuration &rarr; Payment Providers &rarr; Papi</i>, pick a bank journal, then click <i>Test the Connection</i>.</li>
-                <li><b>Switch the provider to Enabled</b>. Papi now shows up at checkout and on invoices.</li>
+                <li><b>Installez</b> le paquet correspondant à votre version d'Odoo (<code>payment_papi</code> ; la passerelle pour les commandes <code>payment_papi_sale</code> est fournie avec).</li>
+                <li><b>Copiez deux secrets</b> depuis <a href="https://dashboard.papi.mg">dashboard.papi.mg</a> (boutique &rarr; onglet <i>Développeur</i>) : la clé API et le secret de signature des notifications.</li>
+                <li><b>Collez-les</b> dans <i>Facturation &rarr; Configuration &rarr; Fournisseurs de paiement &rarr; Papi</i>, choisissez un journal bancaire, puis cliquez sur <i>Tester la connexion</i>.</li>
+                <li><b>Passez le fournisseur sur Activé</b>. Papi apparaît alors au moment du paiement et sur les factures.</li>
             </ol>
         </div>
     </div>
 </section>
 
-<section class="oe_container oe_dark">
-    <div class="oe_row oe_spaced">
-        <div class="oe_span12">
-            <h3 class="oe_slogan">What you configure</h3>
-            <table class="table table-sm">
-                <thead><tr><th>Field</th><th>What to enter</th></tr></thead>
-                <tbody>
-                    <tr><td>API key</td><td>The key of your Papi shop (one key = one shop). Visible to Odoo administrators only</td></tr>
-                    <tr><td>Notification signing secret</td><td>The <code>pwhsec_&hellip;</code> value used to verify <code>X-Papi-Signature</code></td></tr>
-                    <tr><td>Payment link validity</td><td>1 to 596 hours (default 1 h); the transaction is cancelled once it expires</td></tr>
-                    <tr><td>Payment journal</td><td>The bank journal that receives the Papi payments, used for reconciliation</td></tr>
-                    <tr><td>Countries / currencies</td><td>Preset to Madagascar and MGA; empty the country field to offer Papi to customers of any country</td></tr>
-                    <tr><td>State</td><td>Disabled, Test or Enabled (see the warning above about Test mode)</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
-
 <section class="oe_container">
     <div class="oe_row oe_spaced">
         <div class="oe_span12">
-            <h3 class="oe_slogan">What is covered</h3>
+            <h3 class="oe_slogan">Guide pas à pas avec captures d'écran</h3>
+
+            <h4 class="oe_mt32">1. Ouvrir les fournisseurs de paiement</h4>
+            <p>
+                Dans l'application <b>Facturation</b>, ouvrez <i>Configuration &rarr; Paiements en ligne
+                &rarr; Fournisseurs de paiement</i>. Ce même menu donne accès à <i>Devises</i>,
+                nécessaire à l'étape 5.
+            </p>
+            <img src="from-invoice.png" alt="Facturation, menu Configuration, Paiements en ligne, Fournisseurs de paiement" class="img img-fluid border"/>
+
+            <h4 class="oe_mt32">2. Trouver Papi dans la liste</h4>
+            <p>
+                Une fois le module installé, <b>Papi</b> est la première carte de la liste, avec le badge
+                <i>Désactivé</i>. Cliquez sur la carte Papi, ou sur son bouton <i>Activer</i>, pour ouvrir
+                la fiche du fournisseur. Les autres fournisseurs sont les fournisseurs standard d'Odoo :
+                ils ne sont pas nécessaires pour utiliser Papi.
+            </p>
+            <img src="after-fournisseur-paiement-choice-actived-papi.png" alt="Liste des fournisseurs de paiement avec la carte Papi désactivée" class="img img-fluid border"/>
+
+            <h4 class="oe_mt32">3. Saisir vos identifiants Papi</h4>
+            <p>
+                Dans l'onglet <i>Identifiants</i>, un encadré bleu rappelle où trouver vos identifiants dans le
+                tableau de bord Papi (<i>Boutiques</i> &rarr; votre boutique &rarr; onglet <i>Développeur</i>).
+                Renseignez :
+            </p>
+            <ul>
+                <li><b>Boutique Papi</b> : le nom de votre boutique, pour votre repérage (ex. <i>Ma boutique</i>)</li>
+                <li><b>Clé API</b> : la clé API de la boutique (une clé identifie une seule boutique)</li>
+                <li><b>Secret de signature des notifications</b> : le secret <code>pwhsec_&hellip;</code> utilisé pour vérifier l'en-tête <code>X-Papi-Signature</code></li>
+                <li><b>Validité du lien de paiement (heures)</b> : la durée de validité d'un lien de paiement, 1 heure par défaut</li>
+            </ul>
+            <p>
+                Tant que le fournisseur n'est pas configuré, le bandeau <i>Désactivé</i> s'affiche, l'état est
+                <i>Disabled</i> et le statut sur le site est <i>Non publié</i>. Les onglets <i>Configuration</i> et
+                <i>Messages</i> regroupent le journal, les pays et les messages affichés aux clients.
+            </p>
+            <img src="papi-settings-api-key-activation-boutique-name.png" alt="Formulaire du fournisseur Papi, onglet Identifiants, avant configuration" class="img img-fluid border"/>
+
+            <h4 class="oe_mt32">4. Tester la connexion et activer</h4>
+            <p>
+                Cliquez sur <b>Tester la connexion</b>. Odoo interroge l'API Papi avec votre clé et affiche un
+                message vert : <i>« Connexion à Papi réussie : la clé API est valide. »</i>
+                Passez ensuite l'état (<b>State</b>) sur <b>Enabled</b> : le bandeau disparaît, le logo Papi
+                s'affiche et le statut sur le site passe à <i>Publié</i>. Papi est désormais proposé au moment du
+                paiement et sur les factures. La clé API et le secret de signature sont masqués une fois
+                enregistrés et ne sont lisibles que par les administrateurs Odoo.
+            </p>
+            <img src="papi-settings-connexion-test.png" alt="Fournisseur Papi activé, message de connexion réussie" class="img img-fluid border"/>
+
+            <h4 class="oe_mt32">5. Activer la devise MGA</h4>
+            <div class="alert alert-warning">
+                <b>Important :</b> Papi fonctionne uniquement en <b>MGA</b> (Ariary). Si cette devise n'est pas
+                activée, les paiements avec Papi ne fonctionneront pas.
+            </div>
+            <p>
+                Ouvrez <i>Configuration &rarr; Comptabilité &rarr; Devises</i> et vérifiez que le bouton de la
+                colonne <i>Actif</i> est activé pour <b>MGA</b> (symbole <i>Ar</i>, Malagasy ariary). Dans
+                l'exemple ci-dessous, MGA et USD sont actives. Pour l'eCommerce, créez aussi une liste de prix en MGA.
+            </p>
+            <img src="dans-l-onglet-devise-assurer-vous-bien-que-le-currency-MGA-est-active-si-non-cela%20-va-pas-marcher-car-papi-utilise-seuelemt-mga.png" alt="Liste des devises avec MGA actif" class="img img-fluid border"/>
+
+            <h4 class="oe_mt32">6. Ce que voit votre client au moment du paiement</h4>
+            <p>
+                Sur le site, à l'étape <i>Paiement</i> (<i>Commande &rarr; Adresse &rarr; Paiement</i>),
+                <b>Papi</b> est proposé dans <i>Mode de paiement</i> sous la mention <i>« Mobile Money &amp; carte
+                bancaire »</i>, avec les logos des moyens acceptés : <b>MVola</b>, <b>Orange Money</b>,
+                <b>Airtel Money</b> et <b>Visa</b> (carte bancaire). Le message en dessous précise que le client
+                sera redirigé vers le site de Papi pour payer avec MVola, Orange Money, Airtel Money ou une carte.
+            </p>
+            <ul>
+                <li>Le récapitulatif de la commande affiche les montants en <b>ARIARY</b> (MGA), comme l'exige Papi.</li>
+                <li>Le client vérifie l'adresse de <i>livraison et de facturation</i>, puis clique sur <b>Payer maintenant</b>.</li>
+                <li>Le moyen de paiement (MVola, Orange Money, Airtel Money ou carte) se choisit sur la page sécurisée de Papi, et non dans Odoo.</li>
+                <li>Après le paiement, le client revient sur votre site et la commande est confirmée automatiquement dès que Papi a confirmé le paiement.</li>
+            </ul>
+            <img src="papi-checkout-selections.png" alt="Étape Paiement de la boutique en ligne avec Papi, MVola, Orange Money, Airtel Money et Visa" class="img img-fluid border"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3 class="oe_slogan">Ce que vous configurez</h3>
             <table class="table table-sm">
-                <thead><tr><th>Scenario</th><th>Supported</th></tr></thead>
+                <thead><tr><th>Champ</th><th>Valeur à saisir</th></tr></thead>
                 <tbody>
-                    <tr><td>eCommerce checkout (<code>website_sale</code>)</td><td>Yes</td></tr>
-                    <tr><td>Invoices paid from the customer portal</td><td>Yes</td></tr>
-                    <tr><td>Online quotations and standard payment links</td><td>Yes</td></tr>
-                    <tr><td>"Pay with Papi" button for back-office operators</td><td>Yes</td></tr>
-                    <tr><td>Multi-company and multi-website</td><td>Yes</td></tr>
-                    <tr><td>Odoo.sh and on-premise</td><td>Yes</td></tr>
-                    <tr><td>Odoo Online (SaaS)</td><td>No: third-party modules cannot be installed</td></tr>
-                    <tr><td>Point of Sale, subscriptions, refunds from Odoo, saved cards</td><td>Not in this version</td></tr>
+                    <tr><td>Clé API</td><td>La clé de votre boutique Papi (une clé = une boutique). Visible uniquement par les administrateurs Odoo</td></tr>
+                    <tr><td>Secret de signature des notifications</td><td>La valeur <code>pwhsec_&hellip;</code> utilisée pour vérifier <code>X-Papi-Signature</code></td></tr>
+                    <tr><td>Validité du lien de paiement</td><td>De 1 à 596 heures (1 h par défaut) ; la transaction est annulée à l'expiration</td></tr>
+                    <tr><td>Journal de paiement</td><td>Le journal bancaire qui reçoit les paiements Papi, utilisé pour le rapprochement</td></tr>
+                    <tr><td>Pays / devises</td><td>Préréglés sur Madagascar et MGA ; videz le champ pays pour proposer Papi aux clients de tous les pays</td></tr>
+                    <tr><td>État</td><td>Désactivé ou Activé (Papi n'a pas de sandbox : le mode Test d'Odoo n'est pas proposé)</td></tr>
                 </tbody>
             </table>
         </div>
@@ -146,23 +200,26 @@
 
 <section class="oe_container oe_dark">
     <div class="oe_row oe_spaced">
-        <div class="oe_span12">
-            <h3 class="oe_slogan">Fournisseur de paiement Papi pour Odoo</h3>
-            <p>
-                Acceptez les paiements MVola, Orange Money, Airtel Money et carte bancaire sur votre
-                boutique Odoo et pour vos factures. Module compatible avec Odoo 17, 18, 19 et 20 sur Odoo.sh ou en
-                auto-hébergé ; <b>non disponible sur Odoo Online</b>. Versions : Odoo 17, 18, 19 et 20 (un paquet par version).
+        <div class="oe_span12 text-center">
+            <h3 class="oe_slogan">Nous contacter</h3>
+            <p class="oe_mt16">
+                <b>E-mail</b><br/>
+                <a href="mailto:support@papi.mg">support@papi.mg</a>
             </p>
             <p>
-                <b>Configuration requise</b> : Odoo 17 à 20 sur Odoo.sh ou auto-hébergé ; devise MGA (minimum 300 Ar) ;
-                URL publique en HTTPS (<code>web.base.url</code>, <code>proxy_mode = True</code> derrière un proxy) ;
-                sortie HTTPS vers <code>app.papi.mg</code> ; boutique Papi vérifiée avec clé API et secret de signature.
+                <b>Téléphone</b><br/>
+                <a href="tel:+261321164679">+261 32 11 646 79</a>
+            </p>
+            <p>
+                <b>Adresse</b><br/>
+                Lot VA 38 LC Bis Ambohidepona<br/>
+                Antananarivo, Madagascar
             </p>
             <p>
                 Support : <a href="https://docs.papi.mg/docs/support/">docs.papi.mg</a> &middot;
-                <a href="mailto:support@papi.mg">support@papi.mg</a> &middot;
                 <a href="https://papi.mg">papi.mg</a>
             </p>
         </div>
     </div>
 </section>
+</div>
