@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_provider_form" model="ir.ui.view">
+        <field name="name">Papi Provider Form</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <group name="provider_credentials" position="inside">
+                <group invisible="code != 'papi'" name="papi_credentials">
+                    <div class="alert alert-warning" role="alert" colspan="2"
+                         invisible="state != 'test'">
+                        Papi has no sandbox. In test mode, payments are flagged as tests in the Papi
+                        dashboard but <strong>Mobile Money payments are real and debit the payer</strong>.
+                        Use the Papi shop "Test Mode" with the test card to test without moving money.
+                    </div>
+                    <field name="papi_shop_name" placeholder="e.g. My Shop"/>
+                    <field name="papi_api_key"
+                           string="API Key"
+                           required="code == 'papi' and state != 'disabled'"
+                           password="True"/>
+                    <field name="papi_webhook_secret"
+                           string="Notification Signing Secret"
+                           required="code == 'papi' and state != 'disabled'"
+                           placeholder="pwhsec_..."
+                           password="True"/>
+                    <field name="papi_link_validity"/>
+                    <div colspan="2">
+                        <button name="action_papi_test_connection"
+                                type="object"
+                                string="Test the Connection"
+                                class="btn-secondary"
+                                icon="fa-plug"
+                                invisible="state == 'disabled'"/>
+                    </div>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,69 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12 text-center">
+            <h2 class="oe_slogan" style="color:#5B2C91;">Papi Payment Provider for Odoo</h2>
+            <h3 class="oe_slogan">Accept MVola, Orange Money, Airtel Money and card payments in Madagascar</h3>
+            <img src="banner.png" alt="Papi for Odoo" class="img img-fluid" style="max-width:560px;"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3 class="oe_slogan">A native Odoo payment provider</h3>
+            <p class="oe_mt32">
+                Papi appears next to the other payment providers of Odoo. Your customers select
+                Papi at checkout, pay on the secure Papi page with the instrument of their choice,
+                and come back to your website. Orders are confirmed automatically once Papi has
+                confirmed the payment.
+            </p>
+            <ul>
+                <li><b>eCommerce</b> checkout, <b>customer portal invoices</b>, online quotations and payment links</li>
+                <li><b>"Pay with Papi" button</b> on invoices and sales orders: a back-office operator can collect a payment on behalf of the customer</li>
+                <li>MVola, Orange Money, Airtel Money and card (BRED), chosen on the Papi page</li>
+                <li>Signed server-to-server notifications (HMAC-SHA256), replay protection</li>
+                <li>Status always re-checked with the Papi API: a customer return is never trusted as a proof of payment</li>
+                <li>Idempotent processing: repeated notifications never confirm an order twice</li>
+                <li>Automatic catch-up of lost notifications and expired payment links</li>
+                <li>Papi reference, status, instrument, failure reason and error code visible on each transaction</li>
+                <li>"Test the Connection" and "Check Papi Status" buttons for diagnosis</li>
+                <li>Secrets restricted to administrators and never written to the logs</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3 class="oe_slogan">Requirements</h3>
+            <ul>
+                <li>Odoo <b>17.0, 18.0, 19.0 or 20.0</b> (one package per version). Tested on Community; Enterprise not tested</li>
+                <li><b>Odoo.sh or on-premise</b> hosting.
+                    <b>Odoo Online (SaaS) is not supported</b>: it does not allow third-party modules.</li>
+                <li>A verified Papi shop with its API key and notification signing secret</li>
+                <li>Currency <b>MGA</b>; minimum amount 300 MGA</li>
+                <li>Odoo reachable over public HTTPS to receive the Papi notifications</li>
+            </ul>
+            <div class="alert alert-warning">
+                Papi has no sandbox. In Odoo "Test" mode, Mobile Money payments are real. Use the
+                Test Mode of your Papi shop with the test card to test without moving money.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3 class="oe_slogan">Fournisseur de paiement Papi pour Odoo</h3>
+            <p>
+                Acceptez les paiements MVola, Orange Money, Airtel Money et carte bancaire sur votre
+                boutique Odoo et pour vos factures. Module compatible avec Odoo 17, 18, 19 et 20 sur Odoo.sh ou en
+                auto-hébergé ; <b>non disponible sur Odoo Online</b>. Versions : Odoo 17, 18, 19 et 20 (un paquet par version).
+            </p>
+            <p>Support : <a href="https://docs.papi.mg/docs/support/">docs.papi.mg</a></p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Not wrapped in noupdate="1": this runs at every install AND at every `-u payment_papi`
+         update, so that a database where the module was already installed also gets fixed. See
+         `PaymentProvider._papi_post_init_setup` for what it does and why. -->
+    <function model="payment.provider" name="_papi_post_init_setup"/>
+
+</odoo>
