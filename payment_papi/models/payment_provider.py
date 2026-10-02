@@ -58,6 +58,52 @@ class PaymentProvider(models.Model):
         help="How long the customer can use the Papi payment link before it expires.",
         default=const.LINK_VALIDITY_MIN,
     )
+    papi_state = fields.Selection(
+        string="State",
+        selection=[('disabled', "Disabled"), ('enabled', "Enabled")],
+        compute='_compute_papi_state',
+        inverse='_inverse_papi_state',
+        help="Papi has no sandbox, so the test mode of Odoo is not offered for now.",
+    )
+    papi_minimum_amount = fields.Integer(
+        string="Papi Minimum Amount",
+        compute='_compute_papi_minimum_amount',
+        help="The minimum amount, in MGA, that Papi accepts for a payment.",
+    )
+    papi_minimum_amount_warning = fields.Char(
+        compute='_compute_papi_minimum_amount',
+        help="The message shown to the customer when the amount is below the minimum of Papi.",
+    )
+
+    #=== COMPUTE METHODS ===#
+
+    def _compute_papi_minimum_amount(self):
+        """ Expose the minimum amount of Papi to the payment form, which shows a warning below it. """
+        for provider in self:
+            provider.papi_minimum_amount = const.MINIMUM_AMOUNT
+            provider.papi_minimum_amount_warning = _(
+                "The minimum for a Papi payment is %(minimum)s MGA. Increase the amount, or choose "
+                "another payment method.", minimum=const.MINIMUM_AMOUNT,
+            )
+
+    @api.depends('state')
+    def _compute_papi_state(self):
+        """ Show the state of the provider without the test mode, which Papi does not support. """
+        for provider in self:
+            provider.papi_state = provider.state if provider.state in ('disabled', 'enabled') \
+                else False
+
+    def _inverse_papi_state(self):
+        for provider in self:
+            if provider.papi_state:
+                provider.state = provider.papi_state
+
+    @api.onchange('papi_state')
+    def _onchange_papi_state(self):
+        """ Apply the choice right away, so that the fields depending on `state` follow. """
+        for provider in self:
+            if provider.papi_state:
+                provider.state = provider.papi_state
 
     #=== CONSTRAINT METHODS ===#
 
@@ -86,8 +132,12 @@ class PaymentProvider(models.Model):
     def _get_compatible_providers(
         self, company_id, partner_id, amount, *args, is_validation=False, **kwargs
     ):
-        """ Override of `payment` to filter out Papi providers for validation operations, for
-        currencies other than MGA and for amounts below the minimum accepted by Papi.
+        """ Override of `payment` to filter out Papi providers for validation operations and for
+        currencies other than MGA.
+
+        Papi is deliberately kept for amounts below its minimum (see `const.MINIMUM_AMOUNT`): the
+        payment form then explains why it cannot be used, and the payment is refused with a clear
+        message, instead of letting the customer wonder why Papi is missing.
 
         The currency is checked here as well because the generic filter only relies on the
         `available_currency_ids` field, which the merchant may leave empty.
@@ -100,7 +150,7 @@ class PaymentProvider(models.Model):
         if currency and currency.name not in const.SUPPORTED_CURRENCIES:
             providers = providers.filtered(lambda p: p.code != 'papi')
 
-        if is_validation or (amount and amount < const.MINIMUM_AMOUNT):
+        if is_validation:
             providers = providers.filtered(lambda p: p.code != 'papi')
 
         return providers
