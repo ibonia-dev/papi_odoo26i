@@ -193,7 +193,7 @@ class PaymentTransaction(models.Model):
         phone = self._papi_format_phone(self.partner_phone)
         if phone:
             payload['payerPhone'] = phone
-        if not provider.is_live:
+        if const.TEST_MODE_ENABLED and not provider.is_live:
             payload.update(isTestMode=True, testReason="Odoo test")
         return payload
 

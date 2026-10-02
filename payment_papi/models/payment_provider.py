@@ -60,6 +60,26 @@ class PaymentProvider(models.Model):
         help="How long the customer can use the Papi payment link before it expires.",
         default=const.LINK_VALIDITY_MIN,
     )
+    papi_minimum_amount = fields.Integer(
+        string="Papi Minimum Amount",
+        compute='_compute_papi_minimum_amount',
+        help="The minimum amount, in MGA, that Papi accepts for a payment.",
+    )
+    papi_minimum_amount_warning = fields.Char(
+        compute='_compute_papi_minimum_amount',
+        help="The message shown to the customer when the amount is below the minimum of Papi.",
+    )
+
+    #=== COMPUTE METHODS ===#
+
+    def _compute_papi_minimum_amount(self):
+        """ Expose the minimum amount of Papi to the payment form, which shows a warning below it. """
+        for provider in self:
+            provider.papi_minimum_amount = const.MINIMUM_AMOUNT
+            provider.papi_minimum_amount_warning = _(
+                "The minimum for a Papi payment is %(minimum)s MGA. Increase the amount, or choose "
+                "another payment method.", minimum=const.MINIMUM_AMOUNT,
+            )
 
     #=== CONSTRAINT METHODS ===#
 
@@ -89,8 +109,12 @@ class PaymentProvider(models.Model):
         self, company_id, partner_id, amount, *, currency_id=None, is_validation=False,
         report=None, **kwargs
     ):
-        """ Override of `payment` to filter out Papi providers for validation operations, for
-        currencies other than MGA and for amounts below the minimum accepted by Papi.
+        """ Override of `payment` to filter out Papi providers for validation operations and for
+        currencies other than MGA.
+
+        Papi is deliberately kept for amounts below its minimum (see `const.MINIMUM_AMOUNT`): the
+        payment form then explains why it cannot be used, and the payment is refused with a clear
+        message, instead of letting the customer wonder why Papi is missing.
 
         The currency is checked here as well because the generic filter only relies on the
         `available_currency_ids` field, which the merchant may leave empty.
@@ -119,15 +143,6 @@ class PaymentProvider(models.Model):
                 unfiltered_providers - providers,
                 available=False,
                 reason=REPORT_REASONS_MAPPING['validation_not_supported'],
-            )
-        elif amount and amount < const.MINIMUM_AMOUNT:
-            unfiltered_providers = providers
-            providers = providers.filtered(lambda p: p.code != 'papi')
-            payment_utils.add_to_report(
-                report,
-                unfiltered_providers - providers,
-                available=False,
-                reason=_("minimum amount of %s MGA not reached", const.MINIMUM_AMOUNT),
             )
 
         return providers
@@ -284,6 +299,16 @@ class PaymentProvider(models.Model):
         except ValueError:
             return {}
         return content if isinstance(content, dict) else {}
+
+    def action_toggle_is_published(self):
+        """ Override of `payment` to keep the live mode in line with the publication of Papi.
+
+        Papi has no sandbox, so the test mode (`is_live` unchecked) is not offered for now: Papi is
+        live when it is published, and the credentials are then required.
+        """
+        super().action_toggle_is_published()
+        for provider in self.filtered(lambda p: p.code == 'papi'):
+            provider.is_live = provider.is_published
 
     def action_papi_test_connection(self):
         """ Check that the API key is accepted by Papi and display the result.

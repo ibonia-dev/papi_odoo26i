@@ -7,6 +7,7 @@ from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 from odoo.tools import mute_logger
 
+from odoo.addons.payment_papi import const
 from odoo.addons.payment_papi.models.payment_provider import PapiApiError
 from odoo.addons.payment_papi.tests.common import PapiCommon
 
@@ -59,7 +60,8 @@ class TestPaymentTransaction(PapiCommon):
         self.assertEqual(query['ref'], [self.reference])
         self.assertTrue(tx._papi_check_return_access_token(query['access_token'][0]))
         self.assertEqual(payload['validDuration'], 1)
-        self.assertTrue(payload['isTestMode'])
+        # The test mode is not offered for now: it is never sent to Papi.
+        self.assertNotIn('isTestMode', payload)
         for secret in (self.provider.papi_api_key, self.provider.papi_webhook_secret):
             self.assertNotIn(secret, str(payload))
 
@@ -67,6 +69,11 @@ class TestPaymentTransaction(PapiCommon):
         self.provider.is_live = True
         payload = self._create_transaction('redirect')._papi_prepare_payment_link_payload()
         self.assertNotIn('isTestMode', payload)
+
+    def test_payment_link_payload_flags_test_mode_when_it_is_enabled(self):
+        with patch.object(const, 'TEST_MODE_ENABLED', True):
+            payload = self._create_transaction('redirect')._papi_prepare_payment_link_payload()
+        self.assertTrue(payload['isTestMode'])
 
     def test_payment_link_payload_keeps_decimals(self):
         tx = self._create_transaction('redirect', amount=15000.5)

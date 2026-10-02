@@ -27,6 +27,7 @@
     'assets': {
         'web.assets_frontend': [
             'payment_papi/static/src/scss/payment_form.scss',
+            'payment_papi/static/src/interactions/payment_form.js',
         ],
     },
     'images': ['static/description/banner.png'],

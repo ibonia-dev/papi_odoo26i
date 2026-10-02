@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 07:35+0000\n"
+"POT-Creation-Date: 2026-10-02 11:21+0000\n"
 "PO-Revision-Date: 2026-10-01 07:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,9 +17,30 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 
 #. module: payment_papi_sale
+#: model:ir.model.fields,field_description:payment_papi_sale.field_sale_order__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: payment_papi_sale
+#: model:ir.model.fields,field_description:payment_papi_sale.field_sale_order__id
+msgid "ID"
+msgstr "ID"
+
+#. module: payment_papi_sale
+#: model:ir.module.module,summary:base.module_payment_papi_sale
+msgid "Let an operator pay a sales order with Papi from the back-office."
+msgstr ""
+"Permet à un opérateur de payer une commande avec Papi depuis le back-office."
+
+#. module: payment_papi_sale
 #: model:ir.model.fields,field_description:payment_papi_sale.field_sale_order__papi_backend_payment_available
 msgid "Papi Backend Payment Available"
 msgstr "Paiement Papi du back-office disponible"
+
+#. module: payment_papi_sale
+#: model:ir.module.module,shortdesc:base.module_payment_papi_sale
+msgid "Papi: Sales Orders"
+msgstr "Papi : commandes"
 
 #. module: payment_papi_sale
 #: model_terms:ir.ui.view,arch_db:payment_papi_sale.view_order_form_papi
@@ -34,5 +55,4 @@ msgstr "Commande client"
 #. module: payment_papi_sale
 #: model:ir.model.fields,help:payment_papi_sale.field_sale_order__papi_backend_payment_available
 msgid "Whether the document can be paid with Papi from the back-office."
-msgstr ""
-"Indique si le document peut être payé avec Papi depuis le back-office."
+msgstr "Indique si le document peut être payé avec Papi depuis le back-office."

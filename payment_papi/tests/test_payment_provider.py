@@ -23,14 +23,15 @@ class TestPaymentProvider(PapiCommon):
     def test_compatible_with_mga_above_minimum(self):
         self.assertIn(self.papi, self._get_compatible(15000))
 
-    def test_incompatible_below_minimum_amount(self):
+    def test_still_offered_below_minimum_amount(self):
+        """ Papi is kept below its minimum: the payment form explains why it cannot be used. """
         report = {}
         providers = self._get_compatible(299, report=report)
-        self.assertNotIn(self.papi, providers)
-        self.assertFalse(report['providers'][self.papi]['available'])
+        self.assertIn(self.papi, providers)
+        self.assertTrue(report['providers'][self.papi]['available'])
 
-    def test_minimum_amount_is_inclusive(self):
-        self.assertIn(self.papi, self._get_compatible(300))
+    def test_minimum_amount_is_exposed_to_the_payment_form(self):
+        self.assertEqual(self.papi.papi_minimum_amount, 300)
 
     def test_incompatible_with_other_currencies(self):
         self.papi.available_currency_ids = False  # Rely on the supported currencies only.
@@ -103,6 +104,22 @@ class TestPaymentProvider(PapiCommon):
         self._assert_does_not_raise(
             Exception, self.env['payment.provider']._papi_post_init_setup
         )
+
+    def test_publishing_papi_makes_it_live_and_unpublishing_makes_it_test(self):
+        # The test mode is not offered for now: Papi is live when it is published.
+        self.papi.write({'is_live': False, 'is_published': False})
+        self.papi.action_toggle_is_published()
+        self.assertTrue(self.papi.is_published)
+        self.assertTrue(self.papi.is_live)
+        self.papi.action_toggle_is_published()
+        self.assertFalse(self.papi.is_published)
+        self.assertFalse(self.papi.is_live)
+
+    def test_form_hides_the_live_mode_of_papi(self):
+        view = self.env['payment.provider'].get_view(
+            self.env.ref('payment.payment_provider_form').id
+        )
+        self.assertIn("code == 'papi'", view['arch'])
 
     def test_link_validity_bounds(self):
         with self.assertRaises(ValidationError):

@@ -29,11 +29,14 @@ Cliquer sur **« Tester la connexion »** : un message vert confirme que Papi ac
 
 ### État (environnement)
 
-| État Odoo | Effet côté Papi |
+Papi n'a pas de sandbox : **le mode Test d'Odoo n'est pas proposé pour l'instant**. La case « Live » est masquée et Papi est « live » dès qu'il est publié. Les liens sont donc toujours créés en production : `isTestMode` n'est jamais envoyé à Papi.
+
+| Réglage | Effet côté Papi |
 |---|---|
-| **Désactivé** | Papi n'est pas proposé |
-| **Test** | Papi n'est proposé qu'aux utilisateurs internes connectés. Les liens sont créés avec `isTestMode=true`. ⚠️ **Papi n'a pas de sandbox : les paiements mobile money en mode test débitent réellement le payeur.** Pour tester sans mouvement d'argent, activer le « Test Mode » de la boutique dans le dashboard Papi et payer avec la carte de test `4000 0000 0000 5126`, exp. `01/2028`, CVV `123`. |
-| **Activé** | Production |
+| **Dépublié** | Papi n'est pas proposé aux clients |
+| **Publié** (bouton **Publier / Dépublier**) | Papi est proposé et les paiements sont **réels**. La clé API et le secret sont alors obligatoires. |
+
+⚠️ **Papi n'a pas de sandbox : les paiements Mobile Money débitent réellement le payeur.** Pour tester sans mouvement d'argent, activer le « Test Mode » de la boutique dans le dashboard Papi et payer avec la carte de test `4000 0000 0000 5126`, exp. `01/2028`, CVV `123`.
 
 Le bouton **Publier / Dépublier** contrôle l'affichage sur le site web (mode de publication).
 
@@ -46,7 +49,7 @@ Le bouton **Publier / Dépublier** contrôle l'affichage sur le site web (mode d
 | Pays | **Madagascar**, préréglé. Vider le champ pour proposer Papi aux clients de tous pays (paiement en MGA uniquement). |
 | Montant maximum | Selon le plafond de la boutique Papi |
 
-Le **montant minimum de 300 MGA** est appliqué automatiquement : en dessous, Papi n'est pas proposé.
+Le **montant minimum de 300 MGA** est appliqué automatiquement. En dessous, Papi reste **affiché** pour ne pas laisser le client deviner : la page de paiement montre un avertissement (« Papi ne peut pas être utilisé pour ce montant… ») et le paiement est refusé avec un message clair. Dans l'assistant « Pay with Papi » du back-office, le même avertissement apparaît et le bouton refuse le montant.
 
 ### Onglet « Configuration » → Journal (si `account_payment` est installé)
 
@@ -65,7 +68,7 @@ Points d'attention :
 
 - Droits : le bouton des factures exige le groupe *Facturation* ; celui des commandes, le groupe *Ventes : utilisateur*. L'opérateur doit pouvoir modifier le document.
 - Un nouveau paiement est refusé tant qu'un paiement Papi du même document est **en attente** (`pending`) : vérifier d'abord son statut avec « Check Papi Status ».
-- En état **Test**, le bouton fonctionne mais les paiements Mobile Money sont **réels** (voir plus haut). Un avertissement s'affiche dans l'assistant.
+- Les paiements Mobile Money sont **réels** : il n'y a pas de mode Test pour l'instant (voir plus haut).
 - Le « Register Payment » standard d'Odoo ne convient pas : il exige un jeton de paiement enregistré et Papi n'en propose pas.
 - Les transactions créées ainsi portent la case **« Created from the Back-office »**.
 

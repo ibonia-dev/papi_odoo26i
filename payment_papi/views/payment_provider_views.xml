@@ -8,11 +8,15 @@
         <field name="arch" type="xml">
             <group name="provider_credentials" position="inside">
                 <group invisible="code != 'papi'" name="papi_credentials">
-                    <div class="alert alert-warning" role="alert" colspan="2"
-                         invisible="is_live">
-                        Papi has no sandbox. In test mode, payments are flagged as tests in the Papi
-                        dashboard but <strong>Mobile Money payments are real and debit the payer</strong>.
-                        Use the Papi shop "Test Mode" with the test card to test without moving money.
+                    <div class="alert alert-info" role="note" colspan="2" name="papi_credentials_help">
+                        <strong>Where to find your Papi credentials</strong>
+                        <ol class="mb-0 mt-1">
+                            <li>Log in to the <a href="https://dashboard.papi.mg" target="_blank">Papi dashboard</a>.</li>
+                            <li><strong>API Key</strong>: click your avatar, open <em>Shops</em>, select your shop, then open the <em>Developer</em> tab. One API key identifies one shop.</li>
+                            <li><strong>Notification Signing Secret</strong> (starts with <code>pwhsec_</code>): in the same <em>Developer</em> tab, copy the notification signing secret (X-Papi-Signature).</li>
+                            <li>Paste both values below, then click <em>Test the Connection</em>.</li>
+                        </ol>
+                        <a href="https://docs.papi.mg/docs/developper-guide/integration-guide/" target="_blank">Papi integration guide</a>
                     </div>
                     <field name="papi_shop_name" placeholder="e.g. My Shop"/>
                     <field name="papi_api_key"
@@ -35,6 +39,15 @@
                     </div>
                 </group>
             </group>
+            <!-- Papi has no sandbox: the test mode (live mode unchecked) is not offered for now, see
+                 `TEST_MODE_ENABLED` in const.py. Papi is live when it is published. Remove these
+                 blocks to show the core fields again. -->
+            <xpath expr="//field[@name='is_live']" position="attributes">
+                <attribute name="invisible">code == 'papi'</attribute>
+            </xpath>
+            <xpath expr="//widget[@name='web_ribbon'][@bg_color='text-bg-warning']" position="attributes">
+                <attribute name="invisible" separator="or" add="code == 'papi'"/>
+            </xpath>
         </field>
     </record>
 
