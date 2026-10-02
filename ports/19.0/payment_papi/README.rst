@@ -2,7 +2,7 @@
 Payment Provider: Papi
 ===========================
 
-Fournisseur de paiement Odoo (17, 18 et 19, un paquet par version) pour `Papi <https://papi.mg>`_ : paiement par MVola, Orange
+Fournisseur de paiement Odoo (17, 18, 19 et 20, un paquet par version) pour `Papi <https://papi.mg>`_ : paiement par MVola, Orange
 Money, Airtel Money et carte bancaire (BRED) à Madagascar.
 
 Le module s'intègre au flux de paiement standard d'Odoo :

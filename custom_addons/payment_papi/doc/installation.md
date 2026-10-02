@@ -4,7 +4,7 @@
 
 | Élément | Exigence |
 |---|---|
-| Odoo | **17.0, 18.0 ou 19.0** : installer le paquet de **la version d'Odoo utilisée** (`payment_papi-<version>.zip`). Community testé, Enterprise non testé (voir [compatibilite.md](compatibilite.md)) |
+| Odoo | **17.0, 18.0, 19.0 ou 20.0** : installer le paquet de **la version d'Odoo utilisée** (`payment_papi-<version>.zip`). Community testé, Enterprise non testé (voir [compatibilite.md](compatibilite.md)) |
 | Hébergement | **Odoo.sh** ou **auto-hébergé**. **Odoo Online (SaaS) n'est pas supporté** : il n'accepte pas de modules tiers. |
 | Python | Dépendances standard d'Odoo uniquement (`requests`) |
 | Modules Odoo | `account_payment` (installé automatiquement avec `payment`, paiement des factures sur le portail et bouton « Pay with Papi » des factures). Pour l'usage : `website_sale` (e-commerce). Si `sale` est installé, le module passerelle `payment_papi_sale` s'installe automatiquement et ajoute le bouton « Pay with Papi » aux commandes. |

@@ -4,8 +4,8 @@
 
 | Élément | Exigence |
 |---|---|
-| Odoo | **17.0, 18.0 ou 19.0** (un paquet par version). Community testé, Enterprise non testé (voir [compatibilite.md](compatibilite.md)) |
-| Python | 3.10 ou plus (testé en 3.11 pour Odoo 17, en 3.12 pour Odoo 18 et 19), dépendances standard d'Odoo (`requests`) |
+| Odoo | **17.0, 18.0, 19.0 ou 20.0** (un paquet par version). Community testé, Enterprise non testé (voir [compatibilite.md](compatibilite.md)) |
+| Python | 3.10 ou plus (testé en 3.11 pour Odoo 17, en 3.12 pour Odoo 18, 19 et 20), dépendances standard d'Odoo (`requests`) |
 | PostgreSQL | Version supportée par Odoo 18 |
 | Hébergement | Odoo.sh ou auto-hébergé. **Odoo Online (SaaS) ne permet pas d'installer de modules tiers : ce module n'y est pas installable.** |
 

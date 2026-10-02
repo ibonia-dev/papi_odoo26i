@@ -6,7 +6,7 @@
 |---|---|
 | Nom technique | `payment_papi` (+ passerelle `payment_papi_sale`) |
 | Titre | Payment Provider: Papi |
-| Version | 17.0.1.0.0, 18.0.1.0.0 et 19.0.1.0.0 (une page de l'Apps Store par version) |
+| Version | 17.0.1.0.0, 18.0.1.0.0, 19.0.1.0.0 et 20.0.1.0.0 (une page de l'Apps Store par version) |
 | Catégorie | Accounting/Payment Providers |
 | Licence | LGPL-3 (fichier `LICENSE` à la racine du module) |
 | Auteur / site | Papi — https://papi.mg |
@@ -28,7 +28,7 @@ Acceptez MVola, Orange Money, Airtel Money et les cartes à Madagascar avec Papi
 - **Rapprochement** : référence Papi, statuts Papi et Odoo, dates de notification, code d'erreur et bouton de diagnostic sur chaque transaction.
 - Une tâche planifiée rattrape les notifications perdues (Papi n'envoie chaque notification qu'une fois).
 
-**Prérequis** : Odoo 17.0, 18.0 ou 19.0 (un paquet par version ; Community testé, Enterprise non testé), Odoo.sh ou auto-hébergé, devise MGA, URL publique HTTPS, compte Papi vérifié.
+**Prérequis** : Odoo 17.0, 18.0, 19.0 ou 20.0 (un paquet par version ; Community testé, Enterprise non testé), Odoo.sh ou auto-hébergé, devise MGA, URL publique HTTPS, compte Papi vérifié.
 
 **Limites de la v1** : MGA uniquement (minimum 300 Ar) ; pas de point de vente, d'abonnement, de remboursement depuis Odoo ni de tokenisation ; Papi n'a pas de bac à sable (voir [configuration.md](configuration.md)).
 
