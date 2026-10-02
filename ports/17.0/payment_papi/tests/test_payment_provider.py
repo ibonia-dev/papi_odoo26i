@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 import requests
 
 from odoo.exceptions import ValidationError
-from odoo.tests import tagged
+from odoo.tests import Form, tagged
 from odoo.tools import mute_logger
 
 from odoo.addons.payment_papi.tests.common import PapiCommon
@@ -23,11 +23,15 @@ class TestPaymentProvider(PapiCommon):
     def test_compatible_with_mga_above_minimum(self):
         self.assertIn(self.papi, self._get_compatible(15000))
 
-    def test_incompatible_below_minimum_amount(self):
-        self.assertNotIn(self.papi, self._get_compatible(299))
+    def test_still_offered_below_minimum_amount(self):
+        """ Papi is kept below its minimum: the payment form explains why it cannot be used. """
+        report = {}
+        providers = self._get_compatible(299, report=report)
+        self.assertIn(self.papi, providers)
+        self.assertTrue(report['providers'][self.papi]['available'])
 
-    def test_minimum_amount_is_inclusive(self):
-        self.assertIn(self.papi, self._get_compatible(300))
+    def test_minimum_amount_is_exposed_to_the_payment_form(self):
+        self.assertEqual(self.papi.papi_minimum_amount, 300)
 
     def test_incompatible_with_other_currencies(self):
         self.papi.available_currency_ids = False  # Rely on the supported currencies only.
@@ -100,6 +104,29 @@ class TestPaymentProvider(PapiCommon):
         self._assert_does_not_raise(
             Exception, self.env['payment.provider']._papi_post_init_setup
         )
+
+    def test_papi_state_does_not_offer_the_test_mode(self):
+        selection = self.env['payment.provider']._fields['papi_state'].selection
+        self.assertEqual([value for value, _label in selection], ['disabled', 'enabled'])
+
+    def test_papi_state_follows_and_sets_the_state(self):
+        self.papi.state = 'enabled'
+        self.assertEqual(self.papi.papi_state, 'enabled')
+        self.papi.papi_state = 'disabled'
+        self.assertEqual(self.papi.state, 'disabled')
+        self.papi.papi_state = 'enabled'
+        self.assertEqual(self.papi.state, 'enabled')
+
+    def test_papi_state_is_empty_when_the_provider_is_still_in_test_mode(self):
+        self.papi.state = 'test'
+        self.assertFalse(self.papi.papi_state)
+
+    def test_form_applies_the_choice_of_the_papi_state(self):
+        self.papi.state = 'disabled'
+        with Form(self.papi) as form:
+            form.papi_state = 'enabled'
+            self.assertEqual(form.state, 'enabled')
+        self.assertEqual(self.papi.state, 'enabled')
 
     def test_link_validity_bounds(self):
         with self.assertRaises(ValidationError):

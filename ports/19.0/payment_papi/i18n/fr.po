@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 07:34+0000\n"
+"POT-Creation-Date: 2026-10-02 10:12+0000\n"
 "PO-Revision-Date: 2026-09-30 09:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,6 +15,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
+msgid "<span class=\"small text-600\">Mobile Money &amp; bank card</span>"
+msgstr "<span class=\"small text-600\">Mobile Money et carte bancaire</span>"
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid ""
+"<strong>API Key</strong>: click your avatar, open <em>Shops</em>, select "
+"your shop, then open the <em>Developer</em> tab. One API key identifies one "
+"shop."
+msgstr ""
+"<strong>Clé API</strong> : cliquez sur votre avatar, ouvrez <em>Boutiques</"
+"em>, sélectionnez votre boutique, puis ouvrez l'onglet <em>Développeur</em>. "
+"Une clé API identifie une seule boutique."
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid ""
+"<strong>Notification Signing Secret</strong> (starts with <code>pwhsec_</"
+"code>): in the same <em>Developer</em> tab, copy the notification signing "
+"secret (X-Papi-Signature)."
+msgstr ""
+"<strong>Secret de signature des notifications</strong> (commence par "
+"<code>pwhsec_</code>) : dans le même onglet <em>Développeur</em>, copiez le "
+"secret de signature des notifications (X-Papi-Signature)."
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "<strong>Where to find your Papi credentials</strong>"
+msgstr "<strong>Où trouver vos identifiants Papi</strong>"
 
 #. module: payment_papi
 #. odoo-python
@@ -30,12 +62,14 @@ msgstr ""
 #. module: payment_papi
 #: model_terms:ir.ui.view,arch_db:payment_papi.papi_backend_pay_wizard_form
 msgid ""
-"A Papi payment page opens in a new tab. The customer pays with MVola, Orange\n"
-"                    Money, Airtel Money or a card, and the document is updated once Papi confirms\n"
+"A Papi payment page opens in a new tab. The customer pays with MVola, "
+"Orange\n"
+"                    Money, Airtel Money or a card, and the document is "
+"updated once Papi confirms\n"
 "                    the payment."
 msgstr ""
-"Une page de paiement Papi s'ouvre dans un nouvel onglet. Le client paie avec"
-" MVola, Orange Money, Airtel Money ou une carte, et le document est mis à "
+"Une page de paiement Papi s'ouvre dans un nouvel onglet. Le client paie avec "
+"MVola, Orange Money, Airtel Money ou une carte, et le document est mis à "
 "jour dès que Papi confirme le paiement."
 
 #. module: payment_papi
@@ -50,6 +84,7 @@ msgstr "Actif"
 
 #. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__airtel_money
+#: model:payment.method,name:payment_papi.payment_method_papi_airtel_money
 msgid "Airtel Money"
 msgstr "Airtel Money"
 
@@ -128,7 +163,11 @@ msgid "Disabled"
 msgstr "Désactivé"
 
 #. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_account_move__display_name
+#: model:ir.model.fields,field_description:payment_papi.field_papi_backend_pay_mixin__display_name
 #: model:ir.model.fields,field_description:payment_papi.field_papi_backend_pay_wizard__display_name
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__display_name
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
@@ -153,11 +192,6 @@ msgid "Failed"
 msgstr "Échoué"
 
 #. module: payment_papi
-#: model_terms:ir.ui.view,arch_db:payment_papi.payment_transaction_search
-msgid "Group By"
-msgstr "Regrouper par"
-
-#. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_link_validity
 msgid "How long the customer can use the Papi payment link before it expires."
 msgstr ""
@@ -165,7 +199,11 @@ msgstr ""
 "avant son expiration."
 
 #. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_account_move__id
+#: model:ir.model.fields,field_description:payment_papi.field_papi_backend_pay_mixin__id
 #: model:ir.model.fields,field_description:payment_papi.field_papi_backend_pay_wizard__id
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__id
+#: model:ir.model.fields,field_description:payment_papi.field_payment_transaction__id
 msgid "ID"
 msgstr "ID"
 
@@ -190,20 +228,15 @@ msgid "Last Updated on"
 msgstr "Dernière modification le"
 
 #. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Log in to the"
+msgstr "Connectez-vous au"
+
+#. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__mvola
+#: model:payment.method,name:payment_papi.payment_method_papi_mvola
 msgid "MVola"
 msgstr "MVola"
-
-#. module: payment_papi
-#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
-msgid "Mobile Money &amp; bank card"
-msgstr "Mobile Money et carte bancaire"
-
-#. module: payment_papi
-#. odoo-python
-#: code:addons/payment_papi/models/payment_transaction.py:0
-msgid "No transaction found matching reference %s."
-msgstr "Aucune transaction ne correspond à la référence %s."
 
 #. module: payment_papi
 #: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
@@ -217,6 +250,7 @@ msgstr "Ouvrir la page de paiement Papi"
 
 #. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__orange_money
+#: model:payment.method,name:payment_papi.payment_method_papi_orange_money
 msgid "Orange Money"
 msgstr "Orange Money"
 
@@ -228,6 +262,7 @@ msgstr "Payé"
 #. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_provider__code__papi
 #: model:payment.provider,name:payment_papi.payment_provider_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
 #: model_terms:ir.ui.view,arch_db:payment_papi.payment_transaction_form
 msgid "Papi"
 msgstr "Papi"
@@ -325,20 +360,38 @@ msgstr ""
 
 #. module: payment_papi
 #: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Papi dashboard"
+msgstr "tableau de bord Papi"
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
 msgid ""
-"Papi has no sandbox. In test mode, payments are flagged as tests in the Papi\n"
-"                        dashboard but <strong>Mobile Money payments are real and debit the payer</strong>.\n"
-"                        Use the Papi shop \"Test Mode\" with the test card to test without moving money."
+"Papi has no sandbox. In test mode, payments are flagged as tests in the "
+"Papi\n"
+"                        dashboard but <strong>Mobile Money payments are real "
+"and debit the payer</strong>.\n"
+"                        Use the Papi shop \"Test Mode\" with the test card "
+"to test without moving money."
 msgstr ""
-"Papi n'a pas de sandbox. En mode test, les paiements sont marqués comme tests dans le\n"
-"                        dashboard Papi mais <strong>les paiements Mobile Money sont réels et débitent le payeur</strong>.\n"
-"                        Utilisez le « Test Mode » de la boutique Papi avec la carte de test pour tester sans mouvement d'argent."
+"Papi n'a pas de sandbox. En mode test, les paiements sont marqués comme "
+"tests dans le\n"
+"                        dashboard Papi mais <strong>les paiements Mobile "
+"Money sont réels et débitent le payeur</strong>.\n"
+"                        Utilisez le « Test Mode » de la boutique Papi avec "
+"la carte de test pour tester sans mouvement d'argent."
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Papi integration guide"
+msgstr "Guide d'intégration Papi"
 
 #. module: payment_papi
 #: model_terms:ir.ui.view,arch_db:payment_papi.papi_backend_pay_wizard_form
 msgid ""
-"Papi is in test mode, but Papi has no sandbox: <strong>Mobile Money payments\n"
-"                    are real and debit the payer</strong>. To test without moving money, use the\n"
+"Papi is in test mode, but Papi has no sandbox: <strong>Mobile Money "
+"payments\n"
+"                    are real and debit the payer</strong>. To test without "
+"moving money, use the\n"
 "                    \"Test Mode\" of the Papi shop with the test card."
 msgstr ""
 "Papi est en mode test, mais Papi n'a pas de bac à sable : <strong>les "
@@ -400,6 +453,13 @@ msgid "Papi: synchronize pending transactions"
 msgstr "Papi : synchroniser les transactions en attente"
 
 #. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Paste both values below, then click <em>Test the Connection</em>."
+msgstr ""
+"Collez les deux valeurs ci-dessous, puis cliquez sur <em>Tester la "
+"connexion</em>."
+
+#. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/papi_backend_pay_mixin.py:0
 #: model_terms:ir.ui.view,arch_db:payment_papi.papi_backend_pay_wizard_form
@@ -438,12 +498,6 @@ msgid "Pending"
 msgstr "En cours"
 
 #. module: payment_papi
-#. odoo-python
-#: code:addons/payment_papi/models/payment_transaction.py:0
-msgid "Received data with missing reference."
-msgstr "Données reçues sans référence."
-
-#. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_status__success
 msgid "Success"
 msgstr "Réussi"
@@ -473,8 +527,7 @@ msgstr "L'API a renvoyé une réponse inattendue."
 #. odoo-python
 #: code:addons/payment_papi/models/payment_provider.py:0
 msgid "The Papi notification signing secret must start with '%s'."
-msgstr ""
-"Le secret de signature des notifications Papi doit commencer par '%s'."
+msgstr "Le secret de signature des notifications Papi doit commencer par '%s'."
 
 #. module: payment_papi
 #. odoo-python
@@ -494,8 +547,8 @@ msgstr "Le lien de paiement Papi a expiré."
 msgid ""
 "The Papi payment link validity must be between %(min)s and %(max)s hours."
 msgstr ""
-"La validité du lien de paiement Papi doit être comprise entre %(min)s et "
-"%(max)s heures."
+"La validité du lien de paiement Papi doit être comprise entre %(min)s et %"
+"(max)s heures."
 
 #. module: payment_papi
 #. odoo-python
@@ -514,8 +567,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
 msgid ""
-"The amount returned by Papi (%(received)s) does not match the transaction "
-"(%(expected)s)."
+"The amount returned by Papi (%(received)s) does not match the transaction (%"
+"(expected)s)."
 msgstr ""
 "Le montant renvoyé par Papi (%(received)s) ne correspond pas à la "
 "transaction (%(expected)s)."
@@ -568,11 +621,16 @@ msgstr ""
 #. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_payment_transaction__papi_message
 msgid ""
-"The last failure reason reported by Papi, or the last error detected by "
-"Odoo."
+"The last failure reason reported by Papi, or the last error detected by Odoo."
 msgstr ""
 "Le dernier motif d'échec indiqué par Papi, ou la dernière erreur détectée "
 "par Odoo."
+
+#. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "The minimum amount for a Papi payment is %s MGA."
+msgstr "Le montant minimum pour un paiement Papi est de %s MGA."
 
 #. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_shop_name
@@ -586,11 +644,9 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
-msgid ""
-"The notification token returned by Papi does not match the transaction."
+msgid "The notification token returned by Papi does not match the transaction."
 msgstr ""
-"Le jeton de notification renvoyé par Papi ne correspond pas à la "
-"transaction."
+"Le jeton de notification renvoyé par Papi ne correspond pas à la transaction."
 
 #. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_papi_backend_pay_wizard__payer_phone
@@ -627,8 +683,8 @@ msgid ""
 "The token returned by Papi when the payment link was created. Papi sends it "
 "back in every notification."
 msgstr ""
-"Le jeton renvoyé par Papi à la création du lien de paiement. Papi le renvoie"
-" dans chaque notification."
+"Le jeton renvoyé par Papi à la création du lien de paiement. Papi le renvoie "
+"dans chaque notification."
 
 #. module: payment_papi
 #. odoo-python
@@ -641,14 +697,18 @@ msgstr "Ce document ne peut pas être payé pour le moment."
 #: code:addons/payment_papi/models/payment_transaction.py:0
 msgid ""
 "Unknown status received from Papi (link: %(link)s, payment: %(payment)s)."
-msgstr ""
-"Statut inconnu reçu de Papi (lien : %(link)s, paiement : %(payment)s)."
+msgstr "Statut inconnu reçu de Papi (lien : %(link)s, paiement : %(payment)s)."
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
 msgid "Unrecognized status received from Papi: %s."
 msgstr "Statut non reconnu reçu de Papi : %s."
+
+#. module: payment_papi
+#: model:payment.method,name:payment_papi.payment_method_papi_visa
+msgid "VISA"
+msgstr "VISA"
 
 #. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_payment_transaction__papi_last_sync_date
@@ -660,11 +720,10 @@ msgstr ""
 #. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_payment_transaction__papi_last_notification_date
 msgid ""
-"When Odoo last received a signed notification from Papi for this "
-"transaction."
+"When Odoo last received a signed notification from Papi for this transaction."
 msgstr ""
-"Date à laquelle Odoo a reçu pour la dernière fois une notification signée de"
-" Papi pour cette transaction."
+"Date à laquelle Odoo a reçu pour la dernière fois une notification signée de "
+"Papi pour cette transaction."
 
 #. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_payment_transaction__papi_backend_origin
@@ -673,17 +732,16 @@ msgid ""
 "button of an invoice or a sales order, instead of the customer from the "
 "checkout or the portal."
 msgstr ""
-"Indique si un opérateur a créé la transaction avec le bouton « Pay with Papi"
-" » d'une facture ou d'une commande, plutôt que le client depuis le paiement "
-"en ligne ou le portail."
+"Indique si un opérateur a créé la transaction avec le bouton « Pay with "
+"Papi » d'une facture ou d'une commande, plutôt que le client depuis le "
+"paiement en ligne ou le portail."
 
 #. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_account_bank_statement_line__papi_backend_payment_available
 #: model:ir.model.fields,help:payment_papi.field_account_move__papi_backend_payment_available
 #: model:ir.model.fields,help:payment_papi.field_papi_backend_pay_mixin__papi_backend_payment_available
 msgid "Whether the document can be paid with Papi from the back-office."
-msgstr ""
-"Indique si le document peut être payé avec Papi depuis le back-office."
+msgstr "Indique si le document peut être payé avec Papi depuis le back-office."
 
 #. module: payment_papi
 #: model_terms:payment.provider,pre_msg:payment_papi.payment_provider_papi
@@ -700,8 +758,8 @@ msgstr ""
 msgid ""
 "Your payment could not be verified. Please contact us with the reference %s."
 msgstr ""
-"Votre paiement n'a pas pu être vérifié. Veuillez nous contacter en indiquant"
-" la référence %s."
+"Votre paiement n'a pas pu être vérifié. Veuillez nous contacter en indiquant "
+"la référence %s."
 
 #. module: payment_papi
 #: model_terms:payment.provider,auth_msg:payment_papi.payment_provider_papi
@@ -715,13 +773,12 @@ msgstr "Votre paiement a été annulé."
 
 #. module: payment_papi
 #: model_terms:payment.provider,pending_msg:payment_papi.payment_provider_papi
-msgid ""
-"Your payment has been successfully processed but is waiting for approval."
+msgid "Your payment has been processed but is waiting for approval."
 msgstr "Votre paiement a bien été traité mais est en attente de validation."
 
 #. module: payment_papi
 #: model_terms:payment.provider,done_msg:payment_papi.payment_provider_papi
-msgid "Your payment has been successfully processed."
+msgid "Your payment has been processed."
 msgstr "Votre paiement a bien été traité."
 
 #. module: payment_papi

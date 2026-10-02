@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 07:34+0000\n"
-"PO-Revision-Date: 2026-10-01 07:34+0000\n"
+"POT-Creation-Date: 2026-10-02 10:09+0000\n"
+"PO-Revision-Date: 2026-10-02 10:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,35 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
+msgid "<span class=\"small text-600\">Mobile Money &amp; bank card</span>"
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid ""
+"<strong>API Key</strong>: click your avatar, open <em>Shops</em>, select "
+"your shop, then open the <em>Developer</em> tab. One API key identifies one "
+"shop."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid ""
+"<strong>Notification Signing Secret</strong> (starts with "
+"<code>pwhsec_</code>): in the same <em>Developer</em> tab, copy the "
+"notification signing secret (X-Papi-Signature)."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "<strong>Where to find your Papi credentials</strong>"
+msgstr ""
+
+#. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/wizards/papi_backend_pay_wizard.py:0
+#, python-format
 msgid ""
 "A Papi payment is already waiting for confirmation for this document. Check "
 "its status from the payment transactions before creating another one."
@@ -59,6 +86,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_provider.py:0
+#, python-format
 msgid "Ariary (Papi)"
 msgstr ""
 
@@ -85,6 +113,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_provider.py:0
+#, python-format
 msgid "Could not establish the connection to the API."
 msgstr ""
 
@@ -112,6 +141,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
 #: model:ir.model.fields,field_description:payment_papi.field_papi_backend_pay_wizard__partner_id
+#, python-format
 msgid "Customer"
 msgstr ""
 
@@ -181,18 +211,19 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Log in to the"
+msgstr ""
+
+#. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__mvola
 msgid "MVola"
 msgstr ""
 
 #. module: payment_papi
-#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
-msgid "Mobile Money &amp; bank card"
-msgstr ""
-
-#. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid "No transaction found matching reference %s."
 msgstr ""
 
@@ -219,13 +250,9 @@ msgstr ""
 #. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_provider__code__papi
 #: model:payment.provider,name:payment_papi.payment_provider_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
 #: model_terms:ir.ui.view,arch_db:payment_papi.payment_transaction_form
 msgid "Papi"
-msgstr ""
-
-#. module: payment_papi
-#: model:payment.method,name:payment_papi.payment_method_papi
-msgid "Papi (Mobile Money, card)"
 msgstr ""
 
 #. module: payment_papi
@@ -241,6 +268,7 @@ msgstr ""
 #. module: payment_papi
 #: model:ir.model.fields,field_description:payment_papi.field_account_bank_statement_line__papi_backend_payment_available
 #: model:ir.model.fields,field_description:payment_papi.field_account_move__papi_backend_payment_available
+#: model:ir.model.fields,field_description:payment_papi.field_account_payment__papi_backend_payment_available
 #: model:ir.model.fields,field_description:payment_papi.field_papi_backend_pay_mixin__papi_backend_payment_available
 msgid "Papi Backend Payment Available"
 msgstr ""
@@ -309,8 +337,14 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_provider.py:0
+#, python-format
 msgid ""
 "Papi answered with an unexpected status (HTTP %(status)s, code %(code)s)."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Papi dashboard"
 msgstr ""
 
 #. module: payment_papi
@@ -319,6 +353,11 @@ msgid ""
 "Papi has no sandbox. In test mode, payments are flagged as tests in the Papi\n"
 "                        dashboard but <strong>Mobile Money payments are real and debit the payer</strong>.\n"
 "                        Use the Papi shop \"Test Mode\" with the test card to test without moving money."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Papi integration guide"
 msgstr ""
 
 #. module: payment_papi
@@ -332,6 +371,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/wizards/papi_backend_pay_wizard.py:0
+#, python-format
 msgid ""
 "Papi is not available for this document. Papi must be enabled, the document "
 "must be in MGA, and the amount must be at least %(minimum)s MGA."
@@ -340,12 +380,14 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_provider.py:0
+#, python-format
 msgid "Papi refused the API key. Check that it is the key of the right shop."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid ""
 "Papi reports a successful payment for transaction %s, which had been "
 "cancelled in Odoo. It was not confirmed automatically: check the document "
@@ -355,6 +397,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid ""
 "Papi status: link %(link)s, payment %(payment)s. Odoo status: %(state)s."
 msgstr ""
@@ -375,10 +418,16 @@ msgid "Papi: synchronize pending transactions"
 msgstr ""
 
 #. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Paste both values below, then click <em>Test the Connection</em>."
+msgstr ""
+
+#. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/papi_backend_pay_mixin.py:0
 #: model_terms:ir.ui.view,arch_db:payment_papi.papi_backend_pay_wizard_form
 #: model_terms:ir.ui.view,arch_db:payment_papi.view_move_form_papi
+#, python-format
 msgid "Pay with Papi"
 msgstr ""
 
@@ -415,6 +464,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid "Received data with missing reference."
 msgstr ""
 
@@ -439,30 +489,35 @@ msgstr ""
 #. odoo-python
 #: code:addons/payment_papi/models/payment_provider.py:0
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid "The API returned an unexpected response."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_provider.py:0
+#, python-format
 msgid "The Papi notification signing secret must start with '%s'."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid "The Papi payment link has been disabled."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid "The Papi payment link has expired."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_provider.py:0
+#, python-format
 msgid ""
 "The Papi payment link validity must be between %(min)s and %(max)s hours."
 msgstr ""
@@ -470,18 +525,21 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/wizards/papi_backend_pay_wizard.py:0
+#, python-format
 msgid "The Papi payment method is not enabled on the provider."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/wizards/papi_backend_pay_wizard.py:0
+#, python-format
 msgid "The amount must be positive and cannot exceed the amount due (%s)."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid ""
 "The amount returned by Papi (%(received)s) does not match the transaction "
 "(%(expected)s)."
@@ -490,24 +548,28 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid "The amount returned by Papi is missing or invalid."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_provider.py:0
+#, python-format
 msgid "The communication with the API failed. Please try again later."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_provider.py:0
+#, python-format
 msgid "The connection to Papi succeeded: the API key is valid."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid ""
 "The currency returned by Papi (%(received)s) does not match the transaction "
 "(%(expected)s)."
@@ -516,6 +578,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/wizards/papi_backend_pay_wizard.py:0
+#, python-format
 msgid "The document to pay does not exist anymore."
 msgstr ""
 
@@ -535,6 +598,13 @@ msgid ""
 msgstr ""
 
 #. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
+msgid "The minimum amount for a Papi payment is %s MGA."
+msgstr ""
+
+#. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_shop_name
 msgid ""
 "The name of the Papi shop linked to the API key. Informational only: the "
@@ -544,6 +614,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid ""
 "The notification token returned by Papi does not match the transaction."
 msgstr ""
@@ -558,6 +629,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid "The reference returned by Papi does not match the transaction."
 msgstr ""
 
@@ -583,12 +655,14 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/wizards/papi_backend_pay_wizard.py:0
+#, python-format
 msgid "This document cannot be paid at the moment."
 msgstr ""
 
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid ""
 "Unknown status received from Papi (link: %(link)s, payment: %(payment)s)."
 msgstr ""
@@ -596,6 +670,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid "Unrecognized status received from Papi: %s."
 msgstr ""
 
@@ -622,6 +697,7 @@ msgstr ""
 #. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_account_bank_statement_line__papi_backend_payment_available
 #: model:ir.model.fields,help:payment_papi.field_account_move__papi_backend_payment_available
+#: model:ir.model.fields,help:payment_papi.field_account_payment__papi_backend_payment_available
 #: model:ir.model.fields,help:payment_papi.field_papi_backend_pay_mixin__papi_backend_payment_available
 msgid "Whether the document can be paid with Papi from the back-office."
 msgstr ""
@@ -636,6 +712,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid ""
 "Your payment could not be verified. Please contact us with the reference %s."
 msgstr ""
@@ -664,6 +741,7 @@ msgstr ""
 #. module: payment_papi
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
+#, python-format
 msgid "Your payment was refused by Papi. Please try again."
 msgstr ""
 
@@ -675,12 +753,6 @@ msgstr ""
 #. module: payment_papi
 #: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
 msgid "e.g. My Shop"
-msgstr ""
-
-#. module: payment_papi
-#. odoo-python
-#: code:addons/payment_papi/models/payment_provider.py:0
-msgid "minimum amount of %s MGA not reached"
 msgstr ""
 
 #. module: payment_papi

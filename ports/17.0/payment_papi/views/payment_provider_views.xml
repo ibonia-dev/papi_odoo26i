@@ -8,6 +8,16 @@
         <field name="arch" type="xml">
             <group name="provider_credentials" position="inside">
                 <group invisible="code != 'papi'" name="papi_credentials">
+                    <div class="alert alert-info" role="note" colspan="2" name="papi_credentials_help">
+                        <strong>Where to find your Papi credentials</strong>
+                        <ol class="mb-0 mt-1">
+                            <li>Log in to the <a href="https://dashboard.papi.mg" target="_blank">Papi dashboard</a>.</li>
+                            <li><strong>API Key</strong>: click your avatar, open <em>Shops</em>, select your shop, then open the <em>Developer</em> tab. One API key identifies one shop.</li>
+                            <li><strong>Notification Signing Secret</strong> (starts with <code>pwhsec_</code>): in the same <em>Developer</em> tab, copy the notification signing secret (X-Papi-Signature).</li>
+                            <li>Paste both values below, then click <em>Test the Connection</em>.</li>
+                        </ol>
+                        <a href="https://docs.papi.mg/docs/developper-guide/integration-guide/" target="_blank">Papi integration guide</a>
+                    </div>
                     <div class="alert alert-warning" role="alert" colspan="2"
                          invisible="state != 'test'">
                         Papi has no sandbox. In test mode, payments are flagged as tests in the Papi
@@ -35,6 +45,14 @@
                     </div>
                 </group>
             </group>
+            <!-- Papi has no sandbox: the test mode is not offered for now, see `TEST_MODE_ENABLED`
+                 in const.py. Remove these two blocks to show the core selection again. -->
+            <xpath expr="//group[@name='payment_state']/field[@name='state']" position="attributes">
+                <attribute name="invisible">code == 'papi'</attribute>
+            </xpath>
+            <xpath expr="//group[@name='payment_state']/field[@name='state']" position="after">
+                <field name="papi_state" widget="radio" invisible="code != 'papi'"/>
+            </xpath>
         </field>
     </record>
 

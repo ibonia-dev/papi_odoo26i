@@ -6,14 +6,40 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 07:34+0000\n"
-"PO-Revision-Date: 2026-10-01 07:34+0000\n"
+"POT-Creation-Date: 2026-10-02 10:07+0000\n"
+"PO-Revision-Date: 2026-10-02 10:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
+msgid "<span class=\"small text-600\">Mobile Money &amp; bank card</span>"
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid ""
+"<strong>API Key</strong>: click your avatar, open <em>Shops</em>, select "
+"your shop, then open the <em>Developer</em> tab. One API key identifies one "
+"shop."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid ""
+"<strong>Notification Signing Secret</strong> (starts with "
+"<code>pwhsec_</code>): in the same <em>Developer</em> tab, copy the "
+"notification signing secret (X-Papi-Signature)."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "<strong>Where to find your Papi credentials</strong>"
+msgstr ""
 
 #. module: payment_papi
 #. odoo-python
@@ -43,6 +69,7 @@ msgstr ""
 
 #. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__airtel_money
+#: model:payment.method,name:payment_papi.payment_method_papi_airtel_money
 msgid "Airtel Money"
 msgstr ""
 
@@ -181,13 +208,14 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: payment_papi
-#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__mvola
-msgid "MVola"
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Log in to the"
 msgstr ""
 
 #. module: payment_papi
-#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
-msgid "Mobile Money &amp; bank card"
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__mvola
+#: model:payment.method,name:payment_papi.payment_method_papi_mvola
+msgid "MVola"
 msgstr ""
 
 #. module: payment_papi
@@ -208,6 +236,7 @@ msgstr ""
 
 #. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_transaction__papi_payment_method__orange_money
+#: model:payment.method,name:payment_papi.payment_method_papi_orange_money
 msgid "Orange Money"
 msgstr ""
 
@@ -219,6 +248,7 @@ msgstr ""
 #. module: payment_papi
 #: model:ir.model.fields.selection,name:payment_papi.selection__payment_provider__code__papi
 #: model:payment.provider,name:payment_papi.payment_provider_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.method_form
 #: model_terms:ir.ui.view,arch_db:payment_papi.payment_transaction_form
 msgid "Papi"
 msgstr ""
@@ -315,10 +345,20 @@ msgstr ""
 
 #. module: payment_papi
 #: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Papi dashboard"
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
 msgid ""
 "Papi has no sandbox. In test mode, payments are flagged as tests in the Papi\n"
 "                        dashboard but <strong>Mobile Money payments are real and debit the payer</strong>.\n"
 "                        Use the Papi shop \"Test Mode\" with the test card to test without moving money."
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Papi integration guide"
 msgstr ""
 
 #. module: payment_papi
@@ -372,6 +412,11 @@ msgstr ""
 #. module: payment_papi
 #: model:ir.actions.server,name:payment_papi.cron_papi_sync_pending_ir_actions_server
 msgid "Papi: synchronize pending transactions"
+msgstr ""
+
+#. module: payment_papi
+#: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
+msgid "Paste both values below, then click <em>Test the Connection</em>."
 msgstr ""
 
 #. module: payment_papi
@@ -535,6 +580,12 @@ msgid ""
 msgstr ""
 
 #. module: payment_papi
+#. odoo-python
+#: code:addons/payment_papi/models/payment_transaction.py:0
+msgid "The minimum amount for a Papi payment is %s MGA."
+msgstr ""
+
+#. module: payment_papi
 #: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_shop_name
 msgid ""
 "The name of the Papi shop linked to the API key. Informational only: the "
@@ -597,6 +648,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/payment_papi/models/payment_transaction.py:0
 msgid "Unrecognized status received from Papi: %s."
+msgstr ""
+
+#. module: payment_papi
+#: model:payment.method,name:payment_papi.payment_method_papi_visa
+msgid "VISA"
 msgstr ""
 
 #. module: payment_papi

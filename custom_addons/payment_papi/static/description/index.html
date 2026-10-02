@@ -4,6 +4,38 @@
             <h2 class="oe_slogan" style="color:#5B2C91;">Papi Payment Provider for Odoo</h2>
             <h3 class="oe_slogan">Accept MVola, Orange Money, Airtel Money and card payments in Madagascar</h3>
             <img src="banner.png" alt="Papi for Odoo" class="img img-fluid" style="max-width:560px;"/>
+            <p class="oe_mt16">
+                <span class="badge" style="background:#5B2C91;color:#fff;">Odoo 17 &middot; 18 &middot; 19 &middot; 20</span>
+                <span class="badge" style="background:#5B2C91;color:#fff;">Community tested</span>
+                <span class="badge" style="background:#5B2C91;color:#fff;">MGA</span>
+                <span class="badge" style="background:#5B2C91;color:#fff;">95 automated tests</span>
+                <span class="badge" style="background:#5B2C91;color:#fff;">LGPL-3</span>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12 text-center">
+            <h3 class="oe_slogan" style="color:#5B2C91;">Papi, la solution de paiement made in Madagascar</h3>
+            <p class="oe_mt16">
+                <b>Une seule intégration, tous les moyens de paiement locaux.</b>
+                MVola, Orange Money, Airtel Money et carte bancaire : encaissez vos clients sur votre
+                site ou vos factures, suivez chaque transaction en temps réel dans votre tableau de
+                bord et exportez vos rapports.
+            </p>
+            <p class="oe_mt16">
+                <a class="btn btn-primary" href="https://dashboard.papi.mg/authentication/signup">Créer mon compte Papi</a>
+                <a class="btn btn-secondary" href="https://demo.papi.mg">Voir la démo</a>
+            </p>
+            <p class="oe_mt16">
+                <a href="https://papi.mg">papi.mg</a> &middot;
+                <a href="https://dashboard.papi.mg">Tableau de bord</a> &middot;
+                <a href="https://docs.papi.mg">Documentation</a> &middot;
+                <a href="mailto:support@papi.mg">support@papi.mg</a> &middot;
+                +261 32 11 646 78
+            </p>
         </div>
     </div>
 </section>
@@ -37,19 +69,77 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
         <div class="oe_span12">
-            <h3 class="oe_slogan">Requirements</h3>
-            <ul>
-                <li>Odoo <b>17.0, 18.0, 19.0 or 20.0</b> (one package per version). Tested on Community; Enterprise not tested</li>
-                <li><b>Odoo.sh or on-premise</b> hosting.
-                    <b>Odoo Online (SaaS) is not supported</b>: it does not allow third-party modules.</li>
-                <li>A verified Papi shop with its API key and notification signing secret</li>
-                <li>Currency <b>MGA</b>; minimum amount 300 MGA</li>
-                <li>Odoo reachable over public HTTPS to receive the Papi notifications</li>
-            </ul>
+            <h3 class="oe_slogan">Requirements / Configuration requise</h3>
+            <table class="table table-sm">
+                <tbody>
+                    <tr><th>Odoo</th><td><b>17.0, 18.0, 19.0 or 20.0</b> (one package per version). Tested on Community; Enterprise not tested</td></tr>
+                    <tr><th>Hosting</th><td><b>Odoo.sh or on-premise</b>. <b>Odoo Online (SaaS) is not supported</b>: it does not allow third-party modules</td></tr>
+                    <tr><th>Python / PostgreSQL</th><td>Python 3.10+ and the PostgreSQL version supported by your Odoo; only the standard Odoo dependencies (<code>requests</code>)</td></tr>
+                    <tr><th>Odoo apps</th><td><code>account_payment</code> (installed automatically); <code>website_sale</code> for the eCommerce checkout; <code>sale</code> for quotations and sales orders</td></tr>
+                    <tr><th>Currency</th><td><b>MGA</b> (Ariary) enabled, with an MGA pricelist for eCommerce; minimum amount 300 MGA</td></tr>
+                    <tr><th>Public URL</th><td><code>web.base.url</code> set to your public <b>HTTPS</b> address, so Papi can reach <code>/payment/papi/webhook</code>. Behind a reverse proxy: <code>proxy_mode = True</code> and keep the <code>X-Papi-Signature</code> header</td></tr>
+                    <tr><th>Network</th><td>Inbound HTTPS to the webhook (no IP filtering); outbound HTTPS (443) to <code>app.papi.mg</code></td></tr>
+                    <tr><th>Papi account</th><td>A verified Papi shop with its API key and notification signing secret (<a href="https://dashboard.papi.mg/authentication/signup">sign up</a>)</td></tr>
+                </tbody>
+            </table>
             <div class="alert alert-warning">
                 Papi has no sandbox. In Odoo "Test" mode, Mobile Money payments are real. Use the
                 Test Mode of your Papi shop with the test card to test without moving money.
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3 class="oe_slogan">Up and running in four steps</h3>
+            <ol class="oe_mt16">
+                <li><b>Install</b> the package matching your Odoo version (<code>payment_papi</code>; the sales-order bridge <code>payment_papi_sale</code> comes with it).</li>
+                <li><b>Copy two secrets</b> from <a href="https://dashboard.papi.mg">dashboard.papi.mg</a> (shop &rarr; <i>Developer</i> tab): the API key and the notification signing secret.</li>
+                <li><b>Paste them</b> in <i>Accounting &rarr; Configuration &rarr; Payment Providers &rarr; Papi</i>, pick a bank journal, then click <i>Test the Connection</i>.</li>
+                <li><b>Switch the provider to Enabled</b>. Papi now shows up at checkout and on invoices.</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3 class="oe_slogan">What you configure</h3>
+            <table class="table table-sm">
+                <thead><tr><th>Field</th><th>What to enter</th></tr></thead>
+                <tbody>
+                    <tr><td>API key</td><td>The key of your Papi shop (one key = one shop). Visible to Odoo administrators only</td></tr>
+                    <tr><td>Notification signing secret</td><td>The <code>pwhsec_&hellip;</code> value used to verify <code>X-Papi-Signature</code></td></tr>
+                    <tr><td>Payment link validity</td><td>1 to 596 hours (default 1 h); the transaction is cancelled once it expires</td></tr>
+                    <tr><td>Payment journal</td><td>The bank journal that receives the Papi payments, used for reconciliation</td></tr>
+                    <tr><td>Countries / currencies</td><td>Preset to Madagascar and MGA; empty the country field to offer Papi to customers of any country</td></tr>
+                    <tr><td>State</td><td>Disabled, Test or Enabled (see the warning above about Test mode)</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3 class="oe_slogan">What is covered</h3>
+            <table class="table table-sm">
+                <thead><tr><th>Scenario</th><th>Supported</th></tr></thead>
+                <tbody>
+                    <tr><td>eCommerce checkout (<code>website_sale</code>)</td><td>Yes</td></tr>
+                    <tr><td>Invoices paid from the customer portal</td><td>Yes</td></tr>
+                    <tr><td>Online quotations and standard payment links</td><td>Yes</td></tr>
+                    <tr><td>"Pay with Papi" button for back-office operators</td><td>Yes</td></tr>
+                    <tr><td>Multi-company and multi-website</td><td>Yes</td></tr>
+                    <tr><td>Odoo.sh and on-premise</td><td>Yes</td></tr>
+                    <tr><td>Odoo Online (SaaS)</td><td>No: third-party modules cannot be installed</td></tr>
+                    <tr><td>Point of Sale, subscriptions, refunds from Odoo, saved cards</td><td>Not in this version</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
@@ -63,7 +153,16 @@
                 boutique Odoo et pour vos factures. Module compatible avec Odoo 17, 18, 19 et 20 sur Odoo.sh ou en
                 auto-hébergé ; <b>non disponible sur Odoo Online</b>. Versions : Odoo 17, 18, 19 et 20 (un paquet par version).
             </p>
-            <p>Support : <a href="https://docs.papi.mg/docs/support/">docs.papi.mg</a></p>
+            <p>
+                <b>Configuration requise</b> : Odoo 17 à 20 sur Odoo.sh ou auto-hébergé ; devise MGA (minimum 300 Ar) ;
+                URL publique en HTTPS (<code>web.base.url</code>, <code>proxy_mode = True</code> derrière un proxy) ;
+                sortie HTTPS vers <code>app.papi.mg</code> ; boutique Papi vérifiée avec clé API et secret de signature.
+            </p>
+            <p>
+                Support : <a href="https://docs.papi.mg/docs/support/">docs.papi.mg</a> &middot;
+                <a href="mailto:support@papi.mg">support@papi.mg</a> &middot;
+                <a href="https://papi.mg">papi.mg</a>
+            </p>
         </div>
     </div>
 </section>

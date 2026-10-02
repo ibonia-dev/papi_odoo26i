@@ -7,6 +7,11 @@ DEFAULT_API_URL = 'https://app.papi.mg/engine/api/'
 # The currencies supported by Papi, in ISO 4217 format. Only MGA is settled today.
 SUPPORTED_CURRENCIES = ['MGA']
 
+# Papi has no sandbox, so the Odoo test mode is not offered for now: the provider form only lets the
+# merchant enable or disable Papi, and `isTestMode` is never sent to Papi. Set to True, and restore
+# the provider form (see views/payment_provider_views.xml), to bring the test mode back.
+TEST_MODE_ENABLED = False
+
 # The minimum amount accepted by Papi when creating a payment link, in MGA.
 MINIMUM_AMOUNT = 300
 

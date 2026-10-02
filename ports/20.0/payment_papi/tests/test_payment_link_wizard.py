@@ -95,3 +95,23 @@ class TestPaymentLinkWizard(PapiCommon, PaymentHttpCommon):
         with self.assertRaises(ValidationError) as error:
             tx._get_specific_rendering_values({})
         self.assertIn("300", str(error.exception))
+
+    def _get_pay_page(self, amount):
+        values = self._prepare_pay_values(
+            amount=amount, currency=self.currency_mga, partner=self.partner
+        )
+        return self._portal_pay(**values)
+
+    def test_payment_page_warns_when_the_amount_is_below_the_minimum(self):
+        """ Papi stays listed below 300 MGA, with a clear message instead of disappearing. """
+        response = self._get_pay_page(200)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('data-provider-code="papi"', response.text)
+        self.assertIn('papi_minimum_amount_warning', response.text)
+        self.assertIn("Papi cannot be used for this amount.", response.text)
+
+    def test_payment_page_does_not_warn_from_the_minimum(self):
+        for amount in (300, 15000):
+            response = self._get_pay_page(amount)
+            self.assertIn('data-provider-code="papi"', response.text)
+            self.assertNotIn('papi_minimum_amount_warning', response.text)

@@ -33,6 +33,8 @@ class PapiBackendPayWizard(models.TransientModel):
              "It is not saved on the customer.",
     )
     is_test_mode = fields.Boolean(compute='_compute_is_test_mode')
+    is_below_minimum = fields.Boolean(compute='_compute_is_below_minimum')
+    minimum_amount = fields.Integer(compute='_compute_is_below_minimum')
 
     #=== COMPUTE METHODS ===#
 
@@ -58,11 +60,23 @@ class PapiBackendPayWizard(models.TransientModel):
             'payer_phone': self._get_default_payer_phone(partner),
         }
 
+    @api.depends('amount', 'currency_id')
+    def _compute_is_below_minimum(self):
+        """ Warn the operator when the amount is below the minimum that Papi accepts. """
+        for wizard in self:
+            wizard.minimum_amount = const.MINIMUM_AMOUNT
+            wizard.is_below_minimum = (
+                wizard.currency_id.name in const.SUPPORTED_CURRENCIES
+                and wizard.amount < const.MINIMUM_AMOUNT
+            )
+
     def _compute_is_test_mode(self):
         for wizard in self:
             document = wizard._get_document()
             provider = document and document._papi_backend_get_provider(wizard.amount or None)
-            wizard.is_test_mode = bool(provider) and provider.state == 'test'
+            wizard.is_test_mode = (
+                const.TEST_MODE_ENABLED and bool(provider) and provider.state == 'test'
+            )
 
     #=== BUSINESS METHODS ===#
 
@@ -127,12 +141,17 @@ class PapiBackendPayWizard(models.TransientModel):
                 "The amount must be positive and cannot exceed the amount due (%s).",
                 self.amount_max,
             ))
+        if self.is_below_minimum:
+            raise UserError(_(
+                "The minimum amount for a Papi payment is %(minimum)s MGA. Increase the amount to "
+                "pay, or use another payment method.",
+                minimum=const.MINIMUM_AMOUNT,
+            ))
         provider = document._papi_backend_get_provider(self.amount)
         if not provider:
             raise UserError(_(
-                "Papi is not available for this document. Papi must be enabled, the document must "
-                "be in MGA, and the amount must be at least %(minimum)s MGA.",
-                minimum=const.MINIMUM_AMOUNT,
+                "Papi is not available for this document. Papi must be enabled and the document "
+                "must be in MGA."
             ))
         payment_method = provider.payment_method_ids.filtered(lambda m: m.code == 'papi')[:1]
         if not payment_method:

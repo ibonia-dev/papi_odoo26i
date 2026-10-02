@@ -10,6 +10,13 @@
                 <field name="res_id" invisible="1"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="is_test_mode" invisible="1"/>
+                <field name="is_below_minimum" invisible="1"/>
+                <field name="minimum_amount" invisible="1"/>
+                <div class="alert alert-warning" role="alert" invisible="not is_below_minimum">
+                    <strong>Papi cannot be used for this amount.</strong>
+                    The minimum for a Papi payment is <field name="minimum_amount" class="oe_inline"/> MGA.
+                    Increase the amount to pay, or use another payment method.
+                </div>
                 <div class="alert alert-warning" role="alert" invisible="not is_test_mode">
                     Papi is in test mode, but Papi has no sandbox: <strong>Mobile Money payments
                     are real and debit the payer</strong>. To test without moving money, use the

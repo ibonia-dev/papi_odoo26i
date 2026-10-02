@@ -9,6 +9,7 @@ from odoo.tests import tagged
 from odoo.tools import mute_logger
 
 from odoo.addons.payment.tests.http_common import PaymentHttpCommon
+from odoo.addons.payment_papi import const
 from odoo.addons.payment_papi.controllers.main import PapiController
 from odoo.addons.payment_papi.tests.common import PapiCommon
 
@@ -91,7 +92,11 @@ class TestBackendFlow(PapiCommon, PaymentHttpCommon):
         self.assertEqual(wizard.amount, 15000)
         self.assertEqual(wizard.amount_max, 15000)
         self.assertEqual(wizard.payer_phone, '034 12 345 67')
-        self.assertTrue(wizard.is_test_mode)
+        self.assertFalse(wizard.is_test_mode)  # The test mode is not offered for now.
+
+    def test_wizard_warns_about_test_mode_only_when_it_is_enabled(self):
+        with patch.object(const, 'TEST_MODE_ENABLED', True):
+            self.assertTrue(self._open_wizard().is_test_mode)
 
     def test_pay_creates_transaction_linked_to_the_invoice_only(self):
         wizard = self._open_wizard(payer_phone='032 11 222 33')
@@ -122,10 +127,17 @@ class TestBackendFlow(PapiCommon, PaymentHttpCommon):
         with self.assertRaises(UserError):
             wizard.action_pay()
 
-    def test_pay_rejects_amount_below_papi_minimum(self):
+    def test_pay_rejects_amount_below_papi_minimum_with_a_clear_message(self):
         wizard = self._open_wizard(amount=100)
-        with self.assertRaises(UserError):
+        self.assertTrue(wizard.is_below_minimum)
+        with self.assertRaises(UserError) as error:
             wizard.action_pay()
+        self.assertIn("300 MGA", str(error.exception))
+
+    def test_wizard_warns_only_below_papi_minimum(self):
+        self.assertTrue(self._open_wizard(amount=299).is_below_minimum)
+        self.assertFalse(self._open_wizard(amount=300).is_below_minimum)
+        self.assertFalse(self._open_wizard().is_below_minimum)
 
     def test_pay_rejects_when_papi_is_not_available(self):
         wizard = self._open_wizard()
