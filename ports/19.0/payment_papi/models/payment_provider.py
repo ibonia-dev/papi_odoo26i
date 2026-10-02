@@ -55,11 +55,6 @@ class PaymentProvider(models.Model):
         help="The name of the Papi shop linked to the API key. Informational only: the shop is "
              "determined by the API key.",
     )
-    papi_api_url = fields.Char(
-        string="Papi API URL",
-        default=const.DEFAULT_API_URL,
-        required_if_provider='papi',
-    )
     papi_link_validity = fields.Integer(
         string="Payment Link Validity (hours)",
         help="How long the customer can use the Papi payment link before it expires.",
@@ -86,12 +81,6 @@ class PaymentProvider(models.Model):
                     "The Papi notification signing secret must start with '%s'.",
                     const.WEBHOOK_SECRET_PREFIX,
                 ))
-
-    @api.constrains('papi_api_url')
-    def _check_papi_api_url(self):
-        for provider in self.filtered(lambda p: p.code == 'papi' and p.papi_api_url):
-            if not provider.papi_api_url.startswith('https://'):
-                raise ValidationError(_("The Papi API URL must start with https://."))
 
     #=== BUSINESS METHODS ===#
 
@@ -227,7 +216,7 @@ class PaymentProvider(models.Model):
         """
         self.ensure_one()
 
-        url = url_join(self.papi_api_url or const.DEFAULT_API_URL, endpoint)
+        url = url_join(const.DEFAULT_API_URL, endpoint)
         headers = {
             'Token': self.sudo().papi_api_key or '',
             'Accept': 'application/json',

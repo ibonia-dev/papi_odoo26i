@@ -115,10 +115,6 @@ class TestPaymentProvider(PapiCommon):
         with self.assertRaises(ValidationError):
             self.papi.papi_webhook_secret = 'not-a-papi-secret'
 
-    def test_api_url_must_be_https(self):
-        with self.assertRaises(ValidationError):
-            self.papi.papi_api_url = 'http://app.papi.mg/engine/api/'
-
     def test_secrets_restricted_to_system_group(self):
         for field_name in ('papi_api_key', 'papi_webhook_secret'):
             self.assertEqual(self.papi._fields[field_name].groups, 'base.group_system')

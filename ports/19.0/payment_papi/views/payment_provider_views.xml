@@ -25,8 +25,6 @@
                            placeholder="pwhsec_..."
                            password="True"/>
                     <field name="papi_link_validity"/>
-                    <field name="papi_api_url" groups="base.group_no_one"
-                           required="code == 'papi'"/>
                     <div colspan="2">
                         <button name="action_papi_test_connection"
                                 type="object"

@@ -243,11 +243,6 @@ msgid "Papi API Key"
 msgstr "Clé API Papi"
 
 #. module: payment_papi
-#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_api_url
-msgid "Papi API URL"
-msgstr "URL de l'API Papi"
-
-#. module: payment_papi
 #: model:ir.model,name:payment_papi.model_papi_backend_pay_mixin
 msgid "Papi Back-office Payment Mixin"
 msgstr "Mixin de paiement Papi du back-office"
@@ -473,12 +468,6 @@ msgstr ""
 #: code:addons/payment_papi/models/payment_transaction.py:0
 msgid "The API returned an unexpected response."
 msgstr "L'API a renvoyé une réponse inattendue."
-
-#. module: payment_papi
-#. odoo-python
-#: code:addons/payment_papi/models/payment_provider.py:0
-msgid "The Papi API URL must start with https://."
-msgstr "L'URL de l'API Papi doit commencer par https://."
 
 #. module: payment_papi
 #. odoo-python
