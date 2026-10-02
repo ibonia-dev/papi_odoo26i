@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_papi" model="ir.ui.view">
+        <field name="name">sale.order.form.papi</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <field name="papi_backend_payment_available" invisible="1"/>
+                <button name="action_papi_pay_backend"
+                        type="object"
+                        string="Pay with Papi"
+                        class="btn-secondary"
+                        invisible="not papi_backend_payment_available"
+                        groups="sales_team.group_sale_salesman"/>
+            </header>
+        </field>
+    </record>
+
+</odoo>

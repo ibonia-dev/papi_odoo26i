@@ -1,0 +1,36 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* payment_papi_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-01 07:35+0000\n"
+"PO-Revision-Date: 2026-10-01 07:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payment_papi_sale
+#: model:ir.model.fields,field_description:payment_papi_sale.field_sale_order__papi_backend_payment_available
+msgid "Papi Backend Payment Available"
+msgstr ""
+
+#. module: payment_papi_sale
+#: model_terms:ir.ui.view,arch_db:payment_papi_sale.view_order_form_papi
+msgid "Pay with Papi"
+msgstr ""
+
+#. module: payment_papi_sale
+#: model:ir.model,name:payment_papi_sale.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: payment_papi_sale
+#: model:ir.model.fields,help:payment_papi_sale.field_sale_order__papi_backend_payment_available
+msgid "Whether the document can be paid with Papi from the back-office."
+msgstr ""
