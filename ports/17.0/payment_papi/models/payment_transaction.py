@@ -155,7 +155,7 @@ class PaymentTransaction(models.Model):
             "Papi payment link created for transaction with reference %s (expires on %s).",
             self.reference, self.papi_link_expiration,
         )
-        return {'api_url': payment_link}
+        return {'api_url': payment_link, 'return_url': self._papi_get_return_url()}
 
     def _papi_prepare_payment_link_payload(self):
         """ Prepare the payload of the payment link creation request.
@@ -170,10 +170,9 @@ class PaymentTransaction(models.Model):
         self.ensure_one()
         provider = self.provider_id
         base_url = provider.get_base_url()
-        return_url = urls.url_join(base_url, '/payment/papi/return') + '?' + urlencode({
-            'ref': self.reference,
-            'access_token': self._papi_get_return_access_token(),
-        })
+        return_url = self._papi_get_return_url(
+            popup=provider.papi_checkout_mode == 'popup' and not self.papi_backend_origin
+        )
         amount = self.currency_id.round(self.amount)
         description = f"{self.company_id.name} - {self.reference}"[:const.DESCRIPTION_MAX_LENGTH]
 
@@ -224,6 +223,23 @@ class PaymentTransaction(models.Model):
         if re.fullmatch(r'3\d{8}', digits):
             return f'+261{digits}'
         return None
+
+    def _papi_get_return_url(self, popup=False):
+        """ Return the URL where the customer comes back from the Papi payment page.
+
+        Note: self.ensure_one()
+
+        :param bool popup: Whether the Papi page is displayed in a pop-up window. The return page
+                           then closes the window and sends the customer's own window on its way.
+        :return: The return URL.
+        :rtype: str
+        """
+        self.ensure_one()
+        params = {'ref': self.reference, 'access_token': self._papi_get_return_access_token()}
+        if popup:
+            params['popup'] = 1
+        return urls.url_join(self.provider_id.get_base_url(), '/payment/papi/return') \
+            + '?' + urlencode(params)
 
     def _papi_get_return_access_token(self):
         """ Return the token protecting the return URL of the transaction.

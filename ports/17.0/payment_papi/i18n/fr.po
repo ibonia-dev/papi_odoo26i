@@ -903,3 +903,38 @@ msgstr "ex. Ma Boutique"
 #: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
 msgid "pwhsec_..."
 msgstr "pwhsec_..."
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_checkout_mode
+msgid "Payment Page Display"
+msgstr "Affichage de la page de paiement"
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_checkout_mode
+msgid "How the customer reaches the Papi payment page from the payment form. 'Redirect' leaves your website for the Papi page. 'Pop-up window' opens the Papi page in a window and keeps your website open behind a \"payment in progress\" overlay. If the browser blocks the window, the customer is redirected instead."
+msgstr "Comment le client accède à la page de paiement Papi depuis le formulaire de paiement. « Redirection » quitte votre site pour la page Papi. « Fenêtre pop-up » ouvre la page Papi dans une fenêtre et garde votre site ouvert derrière un écran « paiement en cours ». Si le navigateur bloque la fenêtre, le client est redirigé à la place."
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_provider__papi_checkout_mode__redirect
+msgid "Redirect to the Papi page"
+msgstr "Redirection vers la page Papi"
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_provider__papi_checkout_mode__popup
+msgid "Pop-up window with a pending overlay"
+msgstr "Fenêtre pop-up avec écran « paiement en cours »"
+
+#. module: payment_papi
+#: code:addons/payment_papi/controllers/main.py:0
+msgid "Payment processed. You can close this window."
+msgstr "Paiement traité. Vous pouvez fermer cette fenêtre."
+
+#. module: payment_papi
+#: code:addons/payment_papi/static/src/js/payment_form.js:0
+msgid "Payment in progress"
+msgstr "Paiement en cours"
+
+#. module: payment_papi
+#: code:addons/payment_papi/static/src/js/payment_form.js:0
+msgid "A payment window has been opened. Complete the payment in that window to continue."
+msgstr "Une fenêtre de paiement a été ouverte. Complétez le paiement dans cette fenêtre pour continuer."

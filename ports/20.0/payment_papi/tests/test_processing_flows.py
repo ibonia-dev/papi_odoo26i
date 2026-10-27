@@ -199,6 +199,34 @@ class TestProcessingFlows(PapiCommon, PaymentHttpCommon):
         self.assertEqual(tx.state, 'done')
 
     @mute_logger('odoo.addons.payment_papi.controllers.main')
+    def test_return_in_popup_checks_status_and_closes_the_window(self):
+        tx = self._create_papi_transaction()
+        url = self._build_url(PapiController._return_url)
+        params = {
+            'ref': tx.reference, 'access_token': tx._papi_get_return_access_token(), 'popup': '1',
+        }
+        with patch(MAKE_REQUEST, return_value=self._link_status_data()):
+            response = self.opener.get(url, params=params, allow_redirects=False)
+            self._run_processing()
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('text/html', response.headers['Content-Type'])
+        self.assertIn('PAPI_RETURN', response.text)
+        self.assertIn("window.location.replace('/payment/status')", response.text)
+        self.assertEqual(tx.state, 'done')
+
+    @mute_logger('odoo.addons.payment_papi.controllers.main')
+    def test_return_in_popup_without_valid_token_does_not_process(self):
+        tx = self._create_papi_transaction()
+        url = self._build_url(PapiController._return_url)
+        with patch(HANDLE_NOTIFICATION) as handle_mock:
+            response = self.opener.get(
+                url, params={'ref': tx.reference, 'access_token': 'forged', 'popup': '1'},
+                allow_redirects=False,
+            )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(handle_mock.call_count, 0)
+
+    @mute_logger('odoo.addons.payment_papi.controllers.main')
     def test_return_without_valid_token_does_not_process(self):
         tx = self._create_papi_transaction()
         url = self._build_url(PapiController._return_url)

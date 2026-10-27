@@ -6,9 +6,10 @@ import json
 import logging
 import time
 
+from markupsafe import escape
 from werkzeug.exceptions import Forbidden
 
-from odoo import fields, http
+from odoo import _, fields, http
 from odoo.exceptions import ValidationError
 from odoo.http import request
 
@@ -23,7 +24,7 @@ class PapiController(http.Controller):
     _webhook_url = '/payment/papi/webhook'
 
     @http.route(_return_url, type='http', methods=['GET'], auth='public')
-    def papi_return_from_checkout(self, ref=None, access_token=None, **kwargs):
+    def papi_return_from_checkout(self, ref=None, access_token=None, popup=None, **kwargs):
         """ Process the return of the customer from the Papi payment page.
 
         Papi uses the same kind of URL after a success or a failure, and has none for cancellations.
@@ -32,6 +33,7 @@ class PapiController(http.Controller):
 
         :param str ref: The reference of the transaction.
         :param str access_token: The token protecting the return URL of the transaction.
+        :param str popup: '1' if the Papi page was displayed in a pop-up window of the customer.
         :param dict kwargs: The extra parameters added by Papi, if any. They are ignored.
         """
         tx_sudo = request.env['payment.transaction'].sudo().search(
@@ -54,7 +56,38 @@ class PapiController(http.Controller):
                 # nothing would process the payment data queued above.
                 request.env['payment.transaction']._run_processing()
                 return request.redirect(tx_sudo.landing_route)
+        if popup == '1':
+            return self._make_popup_return_response()
         return request.redirect('/payment/status')
+
+    @staticmethod
+    def _make_popup_return_response():
+        """ Close the pop-up window and tell the window of the customer that the payment is over.
+
+        Without the window of the customer (e.g. the pop-up was blocked and the customer was
+        redirected instead), the customer goes to the payment status page right here.
+
+        :return: The HTML page of the pop-up window.
+        :rtype: werkzeug.wrappers.Response
+        """
+        body = f"""<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/></head>
+<body style="font-family: sans-serif; text-align: center; padding: 2rem;">
+<p>{escape(_("Payment processed. You can close this window."))}</p>
+<script>
+(function () {{
+    if (window.opener && !window.opener.closed) {{
+        window.opener.postMessage({{type: 'PAPI_RETURN'}}, '*');
+        window.close();
+    }} else {{
+        window.location.replace('/payment/status');
+    }}
+}})();
+</script>
+</body>
+</html>"""
+        return request.make_response(body, headers=[('Content-Type', 'text/html; charset=utf-8')])
 
     @http.route(_webhook_url, type='http', methods=['POST'], auth='public', csrf=False)
     def papi_webhook(self):

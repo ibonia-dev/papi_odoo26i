@@ -3,6 +3,8 @@
 from unittest.mock import patch
 from urllib.parse import parse_qs, urlparse
 
+from markupsafe import escape
+
 from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 from odoo.tools import mute_logger
@@ -65,6 +67,24 @@ class TestPaymentTransaction(PapiCommon):
         for secret in (self.provider.papi_api_key, self.provider.papi_webhook_secret):
             self.assertNotIn(secret, str(payload))
 
+    def test_payment_link_payload_return_url_follows_the_checkout_mode(self):
+        tx = self._create_transaction('redirect')
+        self.assertEqual(self.provider.papi_checkout_mode, 'redirect')
+        payload = tx._papi_prepare_payment_link_payload()
+        self.assertNotIn('popup', parse_qs(urlparse(payload['successUrl']).query))
+
+        self.provider.papi_checkout_mode = 'popup'
+        payload = tx._papi_prepare_payment_link_payload()
+        self.assertEqual(parse_qs(urlparse(payload['successUrl']).query)['popup'], ['1'])
+        self.assertEqual(payload['successUrl'], payload['failureUrl'])
+
+    def test_payment_link_payload_of_back_office_payment_ignores_popup_mode(self):
+        """ The operator opens the Papi page in a tab, and comes back to the document. """
+        self.provider.papi_checkout_mode = 'popup'
+        tx = self._create_transaction('redirect', papi_backend_origin=True)
+        payload = tx._papi_prepare_payment_link_payload()
+        self.assertNotIn('popup', parse_qs(urlparse(payload['successUrl']).query))
+
     def test_payment_link_payload_in_production(self):
         self.provider.is_live = True
         payload = self._create_transaction('redirect')._papi_prepare_payment_link_payload()
@@ -101,6 +121,11 @@ class TestPaymentTransaction(PapiCommon):
         form_info = self._extract_values_from_html_form(processing_values['redirect_form_html'])
         self.assertEqual(form_info['action'], self.link_creation_data['paymentLink'])
         self.assertEqual(form_info['method'], 'get')
+        # The payment form checks the payment with this URL when it is made in a pop-up window.
+        return_url = tx._papi_get_return_url()
+        self.assertIn(f'data-papi-return-url="{escape(return_url)}"',
+                      processing_values['redirect_form_html'])
+        self.assertNotIn('popup=', return_url)
         self.assertEqual(tx.papi_notification_token, self.notification_token)
         self.assertEqual(tx.papi_payment_link, self.link_creation_data['paymentLink'])
         self.assertEqual(tx.papi_link_status, 'ACTIVE')

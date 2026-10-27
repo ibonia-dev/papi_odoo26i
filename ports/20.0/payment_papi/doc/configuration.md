@@ -23,6 +23,7 @@ Ces deux valeurs sont **confidentielles**. Dans Odoo, elles ne sont visibles et 
 | **Clé API** | La clé API de la boutique |
 | **Secret de signature des notifications** | Le secret `pwhsec_…` |
 | **Validité du lien de paiement (heures)** | De 1 à 596. Par défaut : 1 h. Durée pendant laquelle le client peut payer. Au-delà, la transaction est annulée. |
+| **Affichage de la page de paiement** | **Redirection vers la page Papi** (par défaut) : le client quitte le site pour la page Papi. **Fenêtre pop-up avec écran « paiement en cours »** : la page Papi s'ouvre dans une fenêtre (500 × 700) et le site reste ouvert derrière un écran « Paiement en cours » avec un bouton **Annuler**. Quand le paiement est terminé, la fenêtre se ferme et le client arrive sur la page d'état du paiement. Si le navigateur bloque la fenêtre, le client est redirigé comme dans le premier mode. Ne concerne que le formulaire de paiement du site et du portail : le bouton « Payer avec Papi » du back-office ouvre toujours la page Papi dans un onglet. |
 | **URL de l'API Papi** | Visible en mode développeur uniquement. Par défaut `https://app.papi.mg/engine/api/`. Ne modifier que sur instruction de Papi. |
 
 Cliquer sur **« Tester la connexion »** : un message vert confirme que Papi accepte la clé API. C'est le « statut de la configuration » demandé.

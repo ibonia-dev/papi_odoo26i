@@ -58,6 +58,19 @@ class PaymentProvider(models.Model):
         help="How long the customer can use the Papi payment link before it expires.",
         default=const.LINK_VALIDITY_MIN,
     )
+    papi_checkout_mode = fields.Selection(
+        string="Payment Page Display",
+        selection=[
+            ('redirect', "Redirect to the Papi page"),
+            ('popup', "Pop-up window with a pending overlay"),
+        ],
+        default='redirect',
+        required=True,
+        help="How the customer reaches the Papi payment page from the payment form. "
+             "'Redirect' leaves your website for the Papi page. 'Pop-up window' opens the Papi page "
+             "in a window and keeps your website open behind a \"payment in progress\" overlay. "
+             "If the browser blocks the window, the customer is redirected instead.",
+    )
     papi_state = fields.Selection(
         string="State",
         selection=[('disabled', "Disabled"), ('enabled', "Enabled")],

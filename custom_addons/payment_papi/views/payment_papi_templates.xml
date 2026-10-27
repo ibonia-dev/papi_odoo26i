@@ -2,7 +2,8 @@
 <odoo>
 
     <template id="redirect_form">
-        <form t-att-action="api_url" method="get"/>
+        <!-- The return URL lets the payment form check the payment when it is made in a pop-up. -->
+        <form t-att-action="api_url" method="get" t-att-data-papi-return-url="return_url"/>
     </template>
 
     <template id="method_form" inherit_id="payment.method_form">
@@ -21,6 +22,10 @@
                 />
                 <span class="small text-600">Mobile Money &amp; bank card</span>
             </label>
+        </xpath>
+        <!-- Tell the payment form how to display the Papi page: redirection or pop-up window. -->
+        <xpath expr="//input[@name='o_payment_radio']" position="attributes">
+            <attribute name="t-att-data-papi-checkout-mode">provider_sudo.papi_checkout_mode if provider_sudo.code == 'papi' else None</attribute>
         </xpath>
         <!-- Papi stays listed below its minimum amount: say why it cannot be used instead of
              making the customer guess. The payment itself is refused by the transaction. -->

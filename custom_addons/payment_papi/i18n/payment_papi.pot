@@ -800,3 +800,38 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:payment_papi.payment_provider_form
 msgid "pwhsec_..."
 msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,field_description:payment_papi.field_payment_provider__papi_checkout_mode
+msgid "Payment Page Display"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields,help:payment_papi.field_payment_provider__papi_checkout_mode
+msgid "How the customer reaches the Papi payment page from the payment form. 'Redirect' leaves your website for the Papi page. 'Pop-up window' opens the Papi page in a window and keeps your website open behind a \"payment in progress\" overlay. If the browser blocks the window, the customer is redirected instead."
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_provider__papi_checkout_mode__redirect
+msgid "Redirect to the Papi page"
+msgstr ""
+
+#. module: payment_papi
+#: model:ir.model.fields.selection,name:payment_papi.selection__payment_provider__papi_checkout_mode__popup
+msgid "Pop-up window with a pending overlay"
+msgstr ""
+
+#. module: payment_papi
+#: code:addons/payment_papi/controllers/main.py:0
+msgid "Payment processed. You can close this window."
+msgstr ""
+
+#. module: payment_papi
+#: code:addons/payment_papi/static/src/js/payment_form.js:0
+msgid "Payment in progress"
+msgstr ""
+
+#. module: payment_papi
+#: code:addons/payment_papi/static/src/js/payment_form.js:0
+msgid "A payment window has been opened. Complete the payment in that window to continue."
+msgstr ""

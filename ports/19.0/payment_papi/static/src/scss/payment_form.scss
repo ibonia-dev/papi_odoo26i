@@ -30,3 +30,16 @@
         box-shadow: inset 0 0 0 $border-width $primary;
     }
 }
+
+// The overlay covering the payment form while the customer pays in the Papi pop-up window.
+.o_papi_pending_overlay {
+    position: fixed;
+    inset: 0;
+    z-index: $zindex-modal + 10;
+    background-color: rgba($black, .45);
+
+    .o_papi_pending_card {
+        width: 90%;
+        max-width: 360px;
+    }
+}

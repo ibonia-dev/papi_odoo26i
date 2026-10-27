@@ -11,7 +11,11 @@ PRODUCTS = [  # (internal reference, name, price in MGA)
     ('PAPI-TEST-00300', "Sachet de thé", 300),  # The minimum amount.
     ('PAPI-TEST-00500', "Baguette de pain", 500),
     ('PAPI-TEST-01000', "Eau minérale 50 cl", 1000),
+    ('PAPI-TEST-02500', "Riz local 1 kg", 2500),
     ('PAPI-TEST-05000', "Café moulu 250 g", 5000),
+    ('PAPI-TEST-08000', "Huile de cuisson 1 L", 8000),
+    ('PAPI-TEST-15000', "Miel de Madagascar 250 g", 15000),
+    ('PAPI-TEST-20000', "Poivre sauvage Voatsiperifery 50 g", 20000),
     ('PAPI-TEST-50000', "Gousses de vanille Bourbon 100 g", 50000),
 ]
 
